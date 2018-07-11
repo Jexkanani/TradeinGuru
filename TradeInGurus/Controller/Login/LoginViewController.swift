@@ -158,8 +158,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificat
         if isCredentialValid(){
             login()
         }
-        
-    }
+   }
     
     @IBAction func btnSignUpClk(_ sender: UIButton)
     {
@@ -206,7 +205,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificat
     func login() {
         self.view.endEditing(true)
         AppUtilities.sharedInstance.showLoader()
-        var deviceToken = "5VM99AJr13f-2FbdGgiBJbYAcUgYGF8qy"
+//        var deviceToken = "5VM99AJr13f-2FbdGgiBJbYAcUgYGF8qy"
+        var deviceToken = "dd8714bdbcc11076888df23d910c5bbf158cdd09e7c81ffd43dc11804a96bfcb"
         if let deviceTc = UserDefaults.standard.value(forKey: "DeviceToken") as? String{
             deviceToken = deviceTc
         }

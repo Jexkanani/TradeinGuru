@@ -215,10 +215,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSel
     }
     func signUp()
     {
-        
         self.view.endEditing(true)
         AppUtilities.sharedInstance.showLoader()
-        var deviceToken = "ABCDEFGHIJKLMNO"
+        var deviceToken = "dd8714bdbcc11076888df23d910c5bbf158cdd09e7c81ffd43dc11804a96bfcb"
         
         if let deviceTc = UserDefaults.standard.value(forKey: "DeviceToken") as? String{
             deviceToken = deviceTc
@@ -312,14 +311,12 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSel
                 {
                     AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: (NSLocalizedString("Server is temporary down !! Plz try after sometime", comment: "Server is temporary down !! Plz try after sometime") as NSString))
                 }
-                
             })
         })
     }
     
     
     @IBAction func Btn_StateTFTouch(_ sender: Any) {
-        
         self.view.endEditing(true)
         let picker = SBPickerSelector.picker()
         picker.pickerData = ArrCounty.value(forKey: "statename") as! [Any] //picker content
@@ -331,14 +328,12 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSel
         var frame: CGRect = txtCounty.frame
         frame.origin = point
         picker.showPickerOver(self)
-        
     }
     
     func pickerSelector(_ selector: SBPickerSelector, selectedValue value: String, index idx: Int) {
         print(idx)
-        
         StrStateID =  ((ArrCounty.object(at: idx) as! NSDictionary).value(forKey: "id")) as! String
-        txtStates.text = value 
+        txtStates.text = value
     }
     
     /*
