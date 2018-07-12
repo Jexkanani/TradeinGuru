@@ -677,7 +677,6 @@
 				841E41811F517B64008CC41B /* Frameworks */,
 				841E41821F517B64008CC41B /* Resources */,
 				B867392232B1EF9BE1D26E54 /* [CP] Embed Pods Frameworks */,
-				F287D32D24F638E0799C11B7 /* [CP] Copy Pods Resources */,
 				841080161F8B2DBA001B89CA /* ShellScript */,
 				8462CA9D1FE39FCE00BDD06D /* Embed App Extensions */,
 			);
@@ -815,21 +814,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TradeInGurus/Pods-TradeInGurus-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F287D32D24F638E0799C11B7 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TradeInGurus/Pods-TradeInGurus-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
