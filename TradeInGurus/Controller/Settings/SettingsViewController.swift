@@ -16,7 +16,7 @@ class CustomCell : UITableViewCell {
 }
 
 class SettingsViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet var tblSetting: UITableView!
     var arrAll:NSMutableArray!
     var dictSetting = NSDictionary()
@@ -96,7 +96,7 @@ class SettingsViewController: UIViewController,UITableViewDelegate, UITableViewD
             return 60
         }
         return 1
-
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -111,13 +111,13 @@ class SettingsViewController: UIViewController,UITableViewDelegate, UITableViewD
         return 1
     }
     /*func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if (section == 0) {
-            return "ACCOUNT SETTINGS"
-        } else if (section == 1) {
-            return "CONTACT US"
-        }
-        return ""
-    }*/
+     if (section == 0) {
+     return "ACCOUNT SETTINGS"
+     } else if (section == 1) {
+     return "CONTACT US"
+     }
+     return ""
+     }*/
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 || section == 1 {
@@ -184,14 +184,14 @@ class SettingsViewController: UIViewController,UITableViewDelegate, UITableViewD
                 Cell.lbltitle.text = dictSetting.object(forKey: "weburl") as? String
             }
             Cell.imgimg1.image = UIImage(named:"website_cont")
-
+            
         } else if (indexPath.section == 1 && indexPath.row == 3) {
-//            Cell.lbltitle.text = "";
+            //            Cell.lbltitle.text = "";
             Cell.btn1.addTarget(self, action: #selector(self.Clk_Facebook), for: .touchUpInside)
             Cell.btn2.addTarget(self, action: #selector(self.Clk_Twitter), for: .touchUpInside)
             Cell.btn3.addTarget(self, action: #selector(self.Clk_Googleplus), for: .touchUpInside)
         } else if (indexPath.section == 2 && indexPath.row == 0) {
-            Cell.lbltitle.text = "Preference";
+            Cell.lbltitle.text = "Preferences";
         } else if (indexPath.section == 3 && indexPath.row == 0) {
             Cell.lbltitle.text = "Terms & Condition";
         }
@@ -202,7 +202,7 @@ class SettingsViewController: UIViewController,UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableView.deselectRow(at: indexPath, animated: false)
-
+        
         if (indexPath.section==0 && indexPath.row==0)
         {
             let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -295,3 +295,4 @@ class SettingsViewController: UIViewController,UITableViewDelegate, UITableViewD
         self.present(activityViewController, animated: true, completion: nil)
     }
 }
+

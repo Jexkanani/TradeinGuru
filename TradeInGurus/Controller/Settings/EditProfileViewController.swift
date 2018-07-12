@@ -11,7 +11,7 @@ import MobileCoreServices
 import Alamofire
 
 class EditProfileViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate, SBPickerSelectorDelegate {
-
+    
     //MARK: - All Outlets -
     
     @IBOutlet weak var txtMobileNumber: ACFloatingTextfield!
@@ -24,7 +24,7 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
     @IBOutlet var txtZipcode : ACFloatingTextfield!
     @IBOutlet weak var viewProfile: UIView!
     @IBOutlet weak var imgProfile: UIImageView!
-
+    
     //MARK: - Intilize Varriable -
     
     var imgPro : UIImage = UIImage()
@@ -55,7 +55,7 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
         viewProfile.layer.cornerRadius = 52.5
         viewProfile.clipsToBounds = true
     }
-
+    
     
     //MARK: - All Button Action -
     @IBAction func btnBackPressed(_ sender: Any) {
@@ -80,7 +80,7 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
             imgpicker.delegate = self
             imgpicker.allowsEditing = true
             self.present(imgpicker, animated: true, completion: nil)
- 
+            
         })))
         
         Action.addAction(UIAlertAction(title: "Gallery", style: UIAlertActionStyle.default, handler: ({
@@ -121,9 +121,9 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
         txtState.text = value
     }
     
-
-
-
+    
+    
+    
     //MARK: -  Validation -
     func isCredentialValid() -> Bool {
         let is_valid  = true
@@ -133,7 +133,7 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
             AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "Please enter fullname")
             return false
         }
-       else if (txtMobileNumber.text?.isEmptyOrWhitespace())!{
+        else if (txtMobileNumber.text?.isEmptyOrWhitespace())!{
             
             AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "Please enter mobile number")
             return false
@@ -153,10 +153,8 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
         self.uploadImageAndData()
     }
     
-
+    
     //MARK: - Upload Image Methods
-    
-    
     func uploadImageAndData(){
         
         let str : NSString = NSString()
@@ -171,8 +169,6 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
         }
     }
     
-    
-
     func uploadImageWithAlamofire(Parameters params : [String : AnyObject]?,ImageParameters imgparams :  [NSObject : AnyObject]?,Action action : NSString, success: @escaping (AnyObject) -> Void, failure: @escaping (AnyObject) -> Void)
     {
         
@@ -187,7 +183,7 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
             
             
             if let imageData = UIImageJPEGRepresentation(self.imgPro, 0.7) {
-                        multipartFormData.append(imageData, withName: "image", fileName: "\(NSDate().timeIntervalSince1970 * 1000)).jpg", mimeType: "image/jpg")
+                multipartFormData.append(imageData, withName: "image", fileName: "\(NSDate().timeIntervalSince1970 * 1000)).jpg", mimeType: "image/jpg")
             }
             
             if params != nil{
@@ -226,7 +222,7 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
         })
         
     }
-
+    
     
     func convertToDictionary(text: String) -> NSDictionary {
         if let data = text.data(using: .utf8) {
@@ -274,7 +270,7 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
                 "token": AppUtilities.sharedInstance.getLoginUserToken()
             ]
         ]
-
+        
         
         let URLName = Base_URL
         
@@ -382,3 +378,4 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
     
     
 }
+
