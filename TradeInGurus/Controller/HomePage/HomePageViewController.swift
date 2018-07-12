@@ -79,10 +79,10 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
         super.viewDidLoad()
         //Crashlytics.sharedInstance().crash()
         
-//        if isBackground == false {
-//            AppApi.sharedInstance.notifiCount()
-//
-//        }
+        //        if isBackground == false {
+        //            AppApi.sharedInstance.notifiCount()
+        //
+        //        }
         
         let dict = AppUtilities.sharedInstance.getLoginDict()
         debugPrint(dict)
@@ -105,30 +105,27 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
             viewDelears.isHidden = false
             viewCustomers.isHidden = true
             lblBuyerNotification.isHidden = false
-            getDealersVehicle()
+            //            getDealersVehicle()
             searchBar_De.isHidden = false
         }
         else{
             viewDelears.isHidden = true
             viewCustomers.isHidden = false
             lblBuyerNotification.isHidden = true
-            nearVehicle()
+            //            nearVehicle()
             searchBar_De.isHidden = true
         }
         self.revealViewController().panGestureRecognizer()
         self.revealViewController().tapGestureRecognizer()
         self.revealViewController().delegate = self
-        
-        
         isBackground = false
-        
     }
     
     func refreshCustomerData()   {
         refreshControlCustomer.beginRefreshing()
         self.view.endEditing(true)
+        PageInd = 1
         nearVehicle()
-        
     }
     
     func refreshDealerData()   {
@@ -144,10 +141,9 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.PageInd = 1
         if UserDefaults.standard.bool(forKey: "IsRefresh"){
             UserDefaults.standard.set(false, forKey: "IsRefresh")
-            PageInd = 1
             if userType == "dealer"{
                 self.arrVehicle.removeAllObjects()
                 getDealersVehicle()
@@ -156,7 +152,6 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
                 nearVehicle()
             }
         } else {
-            self.PageInd = 1
             if userType == "dealer"{
                 self.arrVehicle.removeAllObjects()
                 self.tblViewDealear.reloadData()
@@ -168,8 +163,7 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
         
         NotificationCenter.default.addObserver(self, selector: #selector(chatNotification(Noti:)), name: NSNotification.Name(rawValue: "newTapMessage"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(getCustomerRequest(Noti:)), name: NSNotification.Name(rawValue: "customer_request"), object: nil)
-         NotificationCenter.default.addObserver(self, selector: #selector(getDelearAcceptOffer(Noti:)), name: NSNotification.Name(rawValue: "dealer_offer_response"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(getDelearAcceptOffer(Noti:)), name: NSNotification.Name(rawValue: "dealer_offer_response"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -186,8 +180,8 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
                 let arrSperate = strAlert.components(separatedBy: " ")
                 titleName = arrSperate[0] as? String ?? ""
             } else {
-                 dictAlert = dictAps?.object(forKey: "alert") as! NSDictionary
-                 titleName = dictAlert.object(forKey: "title") as? String ?? ""
+                dictAlert = dictAps?.object(forKey: "alert") as! NSDictionary
+                titleName = dictAlert.object(forKey: "title") as? String ?? ""
             }
             let dictData = dictAps?.value(forKey: "data") as? NSDictionary
             let dictTemp : NSMutableDictionary = NSMutableDictionary(dictionary: dictData!)
@@ -205,9 +199,9 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
             let dictAps = dict.value(forKey: "aps") as? NSDictionary
             let dictData = dictAps?.value(forKey: "data") as? NSDictionary
             let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: "VehicleDetailsController") as! VehicleDetailsController
-             detailsVC.userDic = dictData!
-             //detailsVC.isNotific = true
-             NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "customer_request"), object: nil)
+            detailsVC.userDic = dictData!
+            //detailsVC.isNotific = true
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "customer_request"), object: nil)
             self.navigationController?.pushViewController(detailsVC, animated: true)
         }
     }
@@ -216,11 +210,11 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
         if let dict = Noti.value(forKey: "userInfo") as? NSDictionary {
             let dictAps = dict.value(forKey: "aps") as? NSDictionary
             let dictData = dictAps?.value(forKey: "data") as? NSDictionary
-             let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: "VehicleDetailViewController") as! VehicleDetailViewController
-              detailsVC.dictVehicle = dictData!
-           // detailsVC.isNotific = true
-              NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "dealer_offer_response"), object: nil)
-             self.navigationController?.pushViewController(detailsVC, animated: true)
+            let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: "VehicleDetailViewController") as! VehicleDetailViewController
+            detailsVC.dictVehicle = dictData!
+            // detailsVC.isNotific = true
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "dealer_offer_response"), object: nil)
+            self.navigationController?.pushViewController(detailsVC, animated: true)
         }
     }
     
@@ -243,8 +237,8 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     
     func numberOfSections(in tableView: UITableView) -> Int
     {
-//        print(arrVehicle.count)
-//        return arrVehicle.count
+        //        print(arrVehicle.count)
+        //        return arrVehicle.count
         
         if is_searching{
             return arrSearchedVehical.count
@@ -260,9 +254,9 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
         if userType == "dealer"
         {
             let vc : VehicleDetailsController = self.storyboard?.instantiateViewController(withIdentifier: "VehicleDetailsController") as! VehicleDetailsController
-//            vc.userDic = arrData.object(at: indexPath.row) as! NSDictionary
+            //            vc.userDic = arrData.object(at: indexPath.row) as! NSDictionary
             
-//            var dictConsumer : NSDictionary = NSDictionary()
+            //            var dictConsumer : NSDictionary = NSDictionary()
             if is_searching
             {
                 vc.userDic = arrSearchedVehical.object(at: indexPath.section) as! NSDictionary
@@ -273,31 +267,31 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
             }
             self.navigationController?.pushViewController(vc, animated: true)
             /*let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
-            
-            var dictConsumer : NSDictionary = NSDictionary()
-            if is_searching
-            {
-                dictConsumer = arrSearchedVehical.object(at: indexPath.section) as! NSDictionary
-            }
-            else
-            {
-                dictConsumer = arrVehicle.object(at: indexPath.section) as! NSDictionary
-            }
-        
-            if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "BuyerNotiDetailViewController") as? BuyerNotiDetailViewController{
-                if let interestCustomer = dictConsumer.value(forKey: "totarequests") as? String{
-                    if interestCustomer != "0"
-                    {
-                        vc.arrDic = dictConsumer
-                        self.navigationController?.pushViewController(vc, animated: true)
-                    }
-                }
-                else
-                {
-                    vc.arrDic = dictConsumer
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-            }*/
+             
+             var dictConsumer : NSDictionary = NSDictionary()
+             if is_searching
+             {
+             dictConsumer = arrSearchedVehical.object(at: indexPath.section) as! NSDictionary
+             }
+             else
+             {
+             dictConsumer = arrVehicle.object(at: indexPath.section) as! NSDictionary
+             }
+             
+             if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "BuyerNotiDetailViewController") as? BuyerNotiDetailViewController{
+             if let interestCustomer = dictConsumer.value(forKey: "totarequests") as? String{
+             if interestCustomer != "0"
+             {
+             vc.arrDic = dictConsumer
+             self.navigationController?.pushViewController(vc, animated: true)
+             }
+             }
+             else
+             {
+             vc.arrDic = dictConsumer
+             self.navigationController?.pushViewController(vc, animated: true)
+             }
+             }*/
         }
         else
         {
@@ -324,40 +318,40 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     {
         if userType == "dealer"
         {
-//            let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "CellDealer") as! DealerTableViewCell
-//            setCorner(tableViewCell)
+            //            let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "CellDealer") as! DealerTableViewCell
+            //            setCorner(tableViewCell)
             /*
              
-            var dictConsumer : NSDictionary = NSDictionary()
-            if is_searching
-            {
-                dictConsumer = arrSearchedVehical.object(at: indexPath.section) as! NSDictionary
-            }
-            else
-            {
-                dictConsumer = arrVehicle.object(at: indexPath.section) as! NSDictionary
-            }
-            
-            tableViewCell.lblTitle.text = dictConsumer["v_make"] as? String ?? ""
-            tableViewCell.lblPrice.text = dictConsumer["v_price"] as? String ?? ""
-            tableViewCell.lblDistance.text = dictConsumer["mileage"] as? String ?? ""
-            tableViewCell.lblYear.text = dictConsumer["v_year"] as? String ?? ""
-            let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue]
-            let underlineAttributedString = NSAttributedString(string: "\(dictConsumer["totarequests"] as? String ?? "0") Customer Are Interested", attributes: underlineAttribute)
-            tableViewCell.lblInterseted.attributedText = underlineAttributedString
-            
-            if let arrImages = dictConsumer.value(forKey: "vimages") as? NSArray
-            {
-                if arrImages.count>0
-                {
-                    let linkImage = arrImages[0] as? String ?? ""
-                    tableViewCell.imageVehicle.sd_setImage(with: URL(string: linkImage), placeholderImage: UIImage(named: ""))
-                }
-            }
-            
-            tableViewCell.btnMore.addTarget(self, action: #selector(self.btnMore(sender:)), for: .touchUpInside)
-            */
-//            return tableViewCell
+             var dictConsumer : NSDictionary = NSDictionary()
+             if is_searching
+             {
+             dictConsumer = arrSearchedVehical.object(at: indexPath.section) as! NSDictionary
+             }
+             else
+             {
+             dictConsumer = arrVehicle.object(at: indexPath.section) as! NSDictionary
+             }
+             
+             tableViewCell.lblTitle.text = dictConsumer["v_make"] as? String ?? ""
+             tableViewCell.lblPrice.text = dictConsumer["v_price"] as? String ?? ""
+             tableViewCell.lblDistance.text = dictConsumer["mileage"] as? String ?? ""
+             tableViewCell.lblYear.text = dictConsumer["v_year"] as? String ?? ""
+             let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue]
+             let underlineAttributedString = NSAttributedString(string: "\(dictConsumer["totarequests"] as? String ?? "0") Customer Are Interested", attributes: underlineAttribute)
+             tableViewCell.lblInterseted.attributedText = underlineAttributedString
+             
+             if let arrImages = dictConsumer.value(forKey: "vimages") as? NSArray
+             {
+             if arrImages.count>0
+             {
+             let linkImage = arrImages[0] as? String ?? ""
+             tableViewCell.imageVehicle.sd_setImage(with: URL(string: linkImage), placeholderImage: UIImage(named: ""))
+             }
+             }
+             
+             tableViewCell.btnMore.addTarget(self, action: #selector(self.btnMore(sender:)), for: .touchUpInside)
+             */
+            //            return tableViewCell
             let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "CellConsumer") as! CustomerTableViewCell
             setCorner(tableViewCell)
             var dictConsumer : NSDictionary = NSDictionary()
@@ -373,7 +367,10 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
             {
                 if arrImages.count>0{
                     let linkImage = arrImages[0] as? String ?? ""
-                    tableViewCell.imageVehicle.sd_setImage(with: URL(string: linkImage), placeholderImage: UIImage(named: ""))
+                    tableViewCell.imageVehicle.sd_setImage(with: URL(string: linkImage), placeholderImage: UIImage(named: "default_tig_pic"))
+                } else {
+                    let linkImage = ""
+                    tableViewCell.imageVehicle.sd_setImage(with: URL(string: linkImage), placeholderImage: UIImage(named: "default_tig_pic"))
                 }
             }
             tableViewCell.lblYear.text = dictConsumer["v_year"] as? String ?? ""
@@ -409,7 +406,10 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
             {
                 if arrImages.count>0{
                     let linkImage = arrImages[0] as? String ?? ""
-                    tableViewCell.imageVehicle.sd_setImage(with: URL(string: linkImage), placeholderImage: UIImage(named: ""))
+                    tableViewCell.imageVehicle.sd_setImage(with: URL(string: linkImage), placeholderImage: UIImage(named: "default_tig_pic"))
+                } else {
+                    let linkImage = ""
+                    tableViewCell.imageVehicle.sd_setImage(with: URL(string: linkImage), placeholderImage: UIImage(named: "default_tig_pic"))
                 }
             }
             tableViewCell.lblYear.text = dictConsumer["v_year"] as? String ?? ""
@@ -430,7 +430,7 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 120
+        //        return 120
         return 126
     }
     
@@ -484,7 +484,7 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     {
         let buttonPosition:CGPoint = sender.convert(CGPoint.zero, to:self.tblViewDealear)
         let indexPath = self.tblViewDealear.indexPathForRow(at: buttonPosition)
-  
+        
         var dictDealer : NSDictionary = NSDictionary()
         if is_searching
         {
@@ -539,88 +539,88 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     
     //MARK:- API -
     /*
-    func getOfferRequest()
-    {
-        self.isAPICalled = true
-        
-        self.view.endEditing(true)
-        
-        //AppUtilities.sharedInstance.showLoader()
-        
-        let dictionaryParams : NSDictionary = [
-            "service": "GetCustomerOffer",
-            "request" : [
-                "pageindex": pageInd
-            ],
-            
-            "auth": ["id":AppUtilities.sharedInstance.getLoginUserId(),
-                     "token": AppUtilities.sharedInstance.getLoginUserToken()]
-            
-            ]  as NSDictionary
-        
-        debugPrint(dictionaryParams)
-        AppUtilities.sharedInstance.dataTaskLocal(method: "POST", params: dictionaryParams,strMethod: "", completion: { (success, object) in
-            DispatchQueue.main.async( execute: {
-                self.isAPICalled = false
-                if self.spinner != nil{
-                    self.spinner.stopAnimating()
-                    
-                }
-                
-                //AppUtilities.sharedInstance.hideLoader()
-                self.tblData.tableFooterView = nil
-                if let object = object as? NSDictionary
-                {
-                    if  (object.value(forKey: "success") as? Bool) != nil
-                    {
-                        
-                        let responseDic = object
-                        debugPrint(responseDic)
-                        if let status = responseDic.value(forKey: "success") as? Int
-                        {
-                            if(status == 1)
-                            {
-                                if let arr = responseDic.value(forKey: "data") as? NSArray
-                                {
-                                    if arr.count == 0 ||  arr.count < 10 {
-                                        self.isAPICalled = true
-                                    }
-                                    self.arrData.addObjects(from: (responseDic.value(forKey: "data") as! NSArray) as! [Any])
-                                    self.tblData.reloadData()
-                                }
-                            }
-                            else{
-                                //                                if let errorMsg = responseDic.value(forKey: "msg") as? String{
-                                //                                    AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
-                                //                                }
-                            }
-                            self.tblData.isHidden = false
-                            
-                            if self.arrData.count == 0 {
-                                self.viewError404.isHidden = false
-                                self.tblData.isHidden = true
-                                
-                            }
-                        }
-                        else
-                        {
-                            
-                        }
-                    }
-                    else
-                    {
-                        //                        AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "\(object.value(forKey: "message") as? String ?? "" )" as NSString)
-                        
-                    }
-                }
-                else
-                {
-                    AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: (NSLocalizedString("Server is temporary down !! Plz try after sometime", comment: "Server is temporary down !! Plz try after sometime") as NSString))
-                }
-                
-            })
-        })
-    }*/
+     func getOfferRequest()
+     {
+     self.isAPICalled = true
+     
+     self.view.endEditing(true)
+     
+     //AppUtilities.sharedInstance.showLoader()
+     
+     let dictionaryParams : NSDictionary = [
+     "service": "GetCustomerOffer",
+     "request" : [
+     "pageindex": pageInd
+     ],
+     
+     "auth": ["id":AppUtilities.sharedInstance.getLoginUserId(),
+     "token": AppUtilities.sharedInstance.getLoginUserToken()]
+     
+     ]  as NSDictionary
+     
+     debugPrint(dictionaryParams)
+     AppUtilities.sharedInstance.dataTaskLocal(method: "POST", params: dictionaryParams,strMethod: "", completion: { (success, object) in
+     DispatchQueue.main.async( execute: {
+     self.isAPICalled = false
+     if self.spinner != nil{
+     self.spinner.stopAnimating()
+     
+     }
+     
+     //AppUtilities.sharedInstance.hideLoader()
+     self.tblData.tableFooterView = nil
+     if let object = object as? NSDictionary
+     {
+     if  (object.value(forKey: "success") as? Bool) != nil
+     {
+     
+     let responseDic = object
+     debugPrint(responseDic)
+     if let status = responseDic.value(forKey: "success") as? Int
+     {
+     if(status == 1)
+     {
+     if let arr = responseDic.value(forKey: "data") as? NSArray
+     {
+     if arr.count == 0 ||  arr.count < 10 {
+     self.isAPICalled = true
+     }
+     self.arrData.addObjects(from: (responseDic.value(forKey: "data") as! NSArray) as! [Any])
+     self.tblData.reloadData()
+     }
+     }
+     else{
+     //                                if let errorMsg = responseDic.value(forKey: "msg") as? String{
+     //                                    AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
+     //                                }
+     }
+     self.tblData.isHidden = false
+     
+     if self.arrData.count == 0 {
+     self.viewError404.isHidden = false
+     self.tblData.isHidden = true
+     
+     }
+     }
+     else
+     {
+     
+     }
+     }
+     else
+     {
+     //                        AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "\(object.value(forKey: "message") as? String ?? "" )" as NSString)
+     
+     }
+     }
+     else
+     {
+     AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: (NSLocalizedString("Server is temporary down !! Plz try after sometime", comment: "Server is temporary down !! Plz try after sometime") as NSString))
+     }
+     
+     })
+     })
+     }*/
     
     func getDealersVehicle()
     {
@@ -642,18 +642,18 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
             ]  as NSDictionary
         
         /*let dictionaryParams : NSDictionary = [
-            "service": "GetDealersVehicle",
-            "request" : [
-                
-                "dealerid": AppUtilities.sharedInstance.getLoginUserId(),
-                "pageindex": PageInd
-                
-            ],
-            
-            "auth": ["id":AppUtilities.sharedInstance.getLoginUserId(),
-                     "token": AppUtilities.sharedInstance.getLoginUserToken()]
-            
-            ]  as NSDictionary*/
+         "service": "GetDealersVehicle",
+         "request" : [
+         
+         "dealerid": AppUtilities.sharedInstance.getLoginUserId(),
+         "pageindex": PageInd
+         
+         ],
+         
+         "auth": ["id":AppUtilities.sharedInstance.getLoginUserId(),
+         "token": AppUtilities.sharedInstance.getLoginUserToken()]
+         
+         ]  as NSDictionary*/
         
         debugPrint(dictionaryParams)
         
@@ -746,7 +746,6 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
                 self.refreshControlCustomer.endRefreshing()
                 if self.spinner != nil{
                     self.spinner.stopAnimating()
-                    
                 }
                 //AppUtilities.sharedInstance.hideLoader()
                 self.tblViewDealear.tableFooterView = nil
@@ -755,7 +754,6 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
                 {
                     if  (object.value(forKey: "success") as? Bool) != nil
                     {
-                        
                         let responseDic = object
                         debugPrint(responseDic)
                         if let status = responseDic.value(forKey: "success") as? Int
@@ -906,9 +904,9 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     @IBAction func btnReceivedRequestPressed(_ sender: Any) {
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         /*if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "OfferReqReceivedController") as? OfferReqReceivedController{
-            self.navigationController?.pushViewController(vc, animated: true)
-            //jignesh
-        }*/
+         self.navigationController?.pushViewController(vc, animated: true)
+         //jignesh
+         }*/
         
         if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "Listings") as? Listings{
             self.navigationController?.pushViewController(vc, animated: true)
@@ -920,9 +918,7 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "MyInterestViewController") as? MyInterestViewController{
             self.navigationController?.pushViewController(vc, animated: true)
-            
         }
-        
     }
     
     
@@ -930,11 +926,8 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "DealerListViewController") as? DealerListViewController{
             self.navigationController?.pushViewController(vc, animated: true)
-            
         }
-        
     }
-    
     
     //MARK:- UISearchBar Method
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
@@ -943,7 +936,7 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        searchCustomer(searchtext: searchBar.text!)
+        //        searchCustomer(searchtext: searchBar.text!)
         if userType == "dealer" {
             searchCustomer(searchtext: searchBar_De.text!)
         } else {
@@ -963,7 +956,7 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
                 let dictData = arrVehicle.object(at: index) as! NSDictionary
                 var v_make = String()
                 if userType == "dealer" {
-//                    v_make = dictData.value(forKey: "make") as? String
+                    //                    v_make = dictData.value(forKey: "make") as? String
                     v_make = (dictData.value(forKey: "make") as? String)!
                 } else {
                     v_make = (dictData.value(forKey: "v_make") as? String)!
@@ -984,7 +977,7 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
             print("========")
             print(arrSearchedVehical)
             tblViewDealear.reloadData()
-//            tblViewConsumer.reloadData()
+            //            tblViewConsumer.reloadData()
         }
         else
         {
@@ -1021,3 +1014,4 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
      */
     
 }
+

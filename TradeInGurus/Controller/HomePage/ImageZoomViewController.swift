@@ -65,7 +65,7 @@ class ImageZoomViewController: UIViewController, UIScrollViewDelegate, EFImageVi
 //        defaultView.addGestureRecognizer(pinchGesture)
         self.imageViewZoom._delegate = self
         self.imageViewZoom.image = UIImage(named: "default_tig_pic")
-        if pathArray.count>0{
+        if pathArray.count>0 {
             let linkImage = pathArray.object(at: currentIndex) as? String ?? ""
             
             let url = URL(string:linkImage)

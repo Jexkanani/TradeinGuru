@@ -18,7 +18,7 @@ class DealerListTableViewCell:UITableViewCell
 
 
 class DealerListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, UITextFieldDelegate {
-
+    
     @IBOutlet weak var tblViewDealear: UITableView!
     
     @IBOutlet weak var lblTitle: UILabel!
@@ -27,7 +27,7 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var viewSearchByLocation: UIView!
     @IBOutlet weak var viewSearchByDealer: UIView!
     @IBOutlet weak var viewSearchByZipcode: UIView!
-
+    
     @IBOutlet weak var txtSearchByDealer: UITextField!
     @IBOutlet var spinner : UIActivityIndicatorView!
     
@@ -39,11 +39,11 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
     var isSearch = false
     var isSelect = false
     //MARK: - UIView Life Cycle -
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       
+        
+        
         tblViewDealear.rowHeight = UITableViewAutomaticDimension
         tblViewDealear.estimatedRowHeight = 30
         setCorner(viewSearchByLocation)
@@ -60,14 +60,14 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
         super.viewWillAppear(animated)
         
         if UserDefaults.standard.bool(forKey: "IsLocation") {
-           UserDefaults.standard.set(false, forKey: "IsLocation")
+            UserDefaults.standard.set(false, forKey: "IsLocation")
             txtSearchByLocation.text = UserDefaults.standard.value(forKey: "Location") as? String
-             srchLatitude = UserDefaults.standard.value(forKey: "Latitude") as! String
+            srchLatitude = UserDefaults.standard.value(forKey: "Latitude") as! String
             
             srchLongtiude = UserDefaults.standard.value(forKey: "Longitude") as! String
             arrDealers.removeAllObjects()
             searchDealer(text: txtSearchByDealer.text!)
-           
+            PageInd = 1
         }
         else {
             txtSearchByDealer.text = ""
@@ -81,11 +81,11 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
             srchLatitude = "\(GetCurrentLocation.sharedObject.currentGeoLocation?.coordinate.latitude ?? 00)"
             
             srchLongtiude =  "\(GetCurrentLocation.sharedObject.currentGeoLocation?.coordinate.longitude ?? 00)"
-             nearDealer()
+            nearDealer()
         }
     }
     
-
+    
     
     //MARK: - Text Filed Delegate -
     
@@ -100,7 +100,7 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
         arrDealers.removeAllObjects()
         tblViewDealear.reloadData()
         self.lblTitle.text = "TOTAL DEALERS - \(self.arrDealers.count)"
-        if txtSearchByDealer.text != "" {
+        if txtSearchByDealer.text != "" || txtSearchByZipcode.text != "" {
             isSearch = true
             searchDealer(text: txtSearchByDealer.text!)
         }
@@ -110,7 +110,7 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
             nearDealer()
         }
     }
-
+    
     
     //MARK: - All UIButton actions -
     @IBAction func btnBackPressed(_ sender: Any) {
@@ -137,7 +137,7 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
         viewC.layer.cornerRadius = 5.0
         viewC.clipsToBounds = true
     }
-
+    
     
     //MARK:- API -
     
@@ -155,7 +155,6 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
                     "username":txtSearchByDealer.text!,
                     "distance": 1000,
                     "pageindex":PageInd
-                    
                 ]],
             
             "auth": ["id":AppUtilities.sharedInstance.getLoginUserId(),
@@ -169,20 +168,20 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
             DispatchQueue.main.async( execute: {
                 AppUtilities.sharedInstance.hideLoader()
                 self.tblViewDealear.tableFooterView = nil
-
+                
                 if self.spinner != nil{
                     self.spinner.stopAnimating()
-
+                    
                 }
-
+                
                 if let object = object as? NSDictionary
                 {
                     if  (object.value(forKey: "success") as? Bool) != nil
                     {
                         self.isAPICalled = false
-
+                        
                         let responseDic = object
-                        debugPrint(responseDic)
+                        //                        debugPrint(responseDic)
                         if let status = responseDic.value(forKey: "success") as? Int
                         {
                             if(status == 1)
@@ -190,10 +189,9 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
                                 
                                 if let arr = responseDic.value(forKey: "data") as? NSArray
                                 {
-                                    if arr.count == 0 || arr.count < 10{
-                                        self.isAPICalled = true
-
-                                    }
+                                    //                                    if arr.count == 0 || arr.count < 10{
+                                    //                                        self.isAPICalled = true
+                                    //                                    }
                                     self.arrDealers.addObjects(from: NSMutableArray(array: arr) as! [Any])
                                     self.tblViewDealear.reloadData()
                                     self.lblTitle.text = "TOTAL DEALERS - \(self.arrDealers.count)"
@@ -201,15 +199,15 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
                             }
                             else{
                                 self.isAPICalled = true
-
-//                                if let errorMsg = responseDic.value(forKey: "message") as? String{
-//                                    AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
-//                                }
+                                
+                                //                                if let errorMsg = responseDic.value(forKey: "message") as? String{
+                                //                                    AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
+                                //                                }
                             }
                         }
                         else
                         {
-                             AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "\(object.value(forKey: "message") as? String ?? "" )" as NSString)
+                            AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "\(object.value(forKey: "message") as? String ?? "" )" as NSString)
                         }
                     }
                     else
@@ -239,7 +237,7 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
             lat = srchLatitude
             long = srchLongtiude
         }
-
+        
         
         let dictionaryParams : NSDictionary = [
             "service": "Searchdealer",
@@ -265,7 +263,6 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
                 
                 if self.spinner != nil{
                     self.spinner.stopAnimating()
-                    
                 }
                 
                 if let object = object as? NSDictionary
@@ -275,16 +272,16 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
                         self.isAPICalled = false
                         
                         let responseDic = object
-                        debugPrint(responseDic)
+                        //                        debugPrint(responseDic)
                         if let status = responseDic.value(forKey: "success") as? Int
                         {
                             if(status == 1)
                             {
                                 if let arr = responseDic.value(forKey: "data") as? NSArray
                                 {
-                                    if arr.count == 0 || arr.count < 10{
-                                        self.isAPICalled = true
-                                    }
+                                    //                                    if arr.count == 0 || arr.count < 10{
+                                    self.isAPICalled = true
+                                    //                                    }
                                     self.arrDealers = NSMutableArray(array: arr)
                                     self.tblViewDealear.reloadData()
                                     self.lblTitle.text = "TOTAL DEALERS - \(self.arrDealers.count)"
@@ -294,18 +291,14 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
                                     else {
                                         self.tblViewDealear.isHidden = true
                                     }
-                                    
-
                                 }
                                 else {
-                                    
-                                
                                 }
                             }
                             else{
                                 self.isAPICalled = true
                                 self.tblViewDealear.isHidden = true
-                                AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "\(object.value(forKey: "message") as? String ?? "" )" as NSString)
+                                //                                AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "\(object.value(forKey: "message") as? String ?? "" )" as NSString)
                                 // Jignesh
                                 //                                if let errorMsg = responseDic.value(forKey: "message") as? String{
                                 //                                    AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
@@ -331,7 +324,7 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
             })
         })
     }
-
+    
     //MARK: - Table View Method -
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -342,7 +335,7 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
         
         let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "CellDealer") as! DealerListTableViewCell
         setCorner(tableViewCell)
-
+        
         let dictDealer = arrDealers.object(at: indexPath.section) as? NSDictionary
         tableViewCell.lblDealerName.text = dictDealer?.value(forKey: "fullname") as? String ?? ""
         tableViewCell.lblDealerMobile.text = "Mo : " + "\(dictDealer?.value(forKey: "mobile") as? String ?? "")"
@@ -371,9 +364,9 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
         
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         /*if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "DealersDetailViewController") as? DealersDetailViewController{
-            vc.dict = dictConsumer
-            self.navigationController?.pushViewController(vc, animated: true)
-        }*/
+         vc.dict = dictConsumer
+         self.navigationController?.pushViewController(vc, animated: true)
+         }*/
         if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "DealerInfoViewController") as? DealerInfoViewController{
             vc.dictData = dictConsumer
             self.navigationController?.pushViewController(vc, animated: true)
@@ -414,8 +407,8 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
         }
         return false
     }
-
-
+    
+    
     //MARK: - Memory Managememt -
     
     
@@ -424,15 +417,16 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
+
