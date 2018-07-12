@@ -8,14 +8,16 @@
 
 import UIKit
 import UserNotifications
+import Alamofire
 
-class ChatViewController: UIViewController, UITextViewDelegate, UNUserNotificationCenterDelegate {
+class ChatViewController: UIViewController, UITextViewDelegate, UNUserNotificationCenterDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     //MARK: - All Outlets -
     
     @IBOutlet var tblChat : UITableView!
     @IBOutlet var txtViewMessage : IQTextView!
     @IBOutlet var btnSend : UIButton!
+    @IBOutlet var btnAttach : UIButton!
     @IBOutlet var lblUserName : UILabel!
     @IBOutlet var viewNavigationBar : UIView!
     @IBOutlet var viewScroll : UIScrollView!
@@ -37,6 +39,9 @@ class ChatViewController: UIViewController, UITextViewDelegate, UNUserNotificati
     var isFromBuyerNoti = false
     
     var arrHeader = NSMutableArray()
+    
+    var imgPro : UIImage = UIImage()
+    var imgStr : String = String()
     
     //MARK: - View Life Cycle -
     
@@ -104,11 +109,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, UNUserNotificati
                     } else {
                         self.toUserId = dictChatUser.value(forKey: "toId") as? String ?? ""
                     }
-                    
-                    
-                    
                 }
-                
             }
         }
         
@@ -136,9 +137,9 @@ class ChatViewController: UIViewController, UITextViewDelegate, UNUserNotificati
     func keyboardWasShown(anotification : NSNotification)  {
         let info = anotification.userInfo;
         let kbSize = ((info![UIKeyboardFrameBeginUserInfoKey])! as AnyObject).cgRectValue.size
-
+        
         UIView.animate(withDuration: 0.5, animations: {
-           
+            
             self.constrainTableViewHeight.constant = self.view.frame.size.height - kbSize.height - 108;
             self.constrainTableViewTop.constant = kbSize.height
             if self.arrChat.count != 0 {
@@ -150,7 +151,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, UNUserNotificati
         
     }
     func keyboardWillBeHidden(anitification : NSNotification)  {
-       
+        
         UIView.animate(withDuration: 0.5, animations: {
             self.constrainTableViewHeight.constant = self.view.frame.size.height - 108
             self.constrainTableViewTop.constant = 0
@@ -181,12 +182,37 @@ class ChatViewController: UIViewController, UITextViewDelegate, UNUserNotificati
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func btnAttachClk(_ sender: UIButton) {
+        let Action = UIAlertController(title: "Add Pic", message: "Choose from gallery", preferredStyle: UIAlertControllerStyle.actionSheet)
+        Action.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        
+        Action.addAction(UIAlertAction(title: "Take a Photo", style: UIAlertActionStyle.default, handler: ({
+            action in
+            let imgpicker = UIImagePickerController()
+            imgpicker.sourceType = UIImagePickerControllerSourceType.camera
+            imgpicker.cameraDevice = UIImagePickerControllerCameraDevice.front
+            imgpicker.delegate = self
+            imgpicker.allowsEditing = true
+            self.present(imgpicker, animated: true, completion: nil)
+        })))
+        
+        Action.addAction(UIAlertAction(title: "Gallery", style: UIAlertActionStyle.default, handler: ({
+            action in
+            let imgpicker = UIImagePickerController()
+            imgpicker.allowsEditing = true
+            imgpicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            imgpicker.delegate = self
+            self.present(imgpicker, animated: true, completion: nil)
+        })))
+        
+        self.present(Action, animated: true, completion: nil)
+    }
+    
     @IBAction func btnSendMsg(_ sender: UIButton) {
         if txtViewMessage.text.trim() != "" {
-             self.btnSend.isEnabled = false
-             self.sendMessage()
+            self.btnSend.isEnabled = false
+            self.sendMessage()
         }
-       
     }
     
     
@@ -385,7 +411,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, UNUserNotificati
                         {
                             if(status == 1)
                             {
-                               
+                                
                                 self.arrChat.add(responseDic.value(forKey: "data") as! NSDictionary)
                                 self.tblChat.reloadData()
                                 let indexPath = IndexPath(row: self.arrChat.count - 1, section: 0)
@@ -422,6 +448,167 @@ class ChatViewController: UIViewController, UITextViewDelegate, UNUserNotificati
         })
     }
     
+    func sendAttachment() {
+        
+        let dictionaryParams : NSDictionary = [
+            "service": "sendmessage",
+            "request" : [
+                "data" : ["toId" : self.toUserId,
+                          "message" : "",//self.txtViewMessage.text!,
+                    "attachment" : self.imgStr
+                ],
+            ],
+            "auth": ["id":AppUtilities.sharedInstance.getLoginUserId(),
+                     "token": AppUtilities.sharedInstance.getLoginUserToken()]
+            
+            ]  as NSDictionary
+        
+        debugPrint(dictionaryParams)
+        
+        AppUtilities.sharedInstance.dataTaskLocal(method: "POST", params: dictionaryParams,strMethod: "", completion: { (success, object) in
+            DispatchQueue.main.async( execute: {
+                
+                if let object = object as? NSDictionary
+                {
+                    if  (object.value(forKey: "success") as? Bool) != nil
+                    {
+                        self.txtViewMessage.text = ""
+                        self.btnSend.isSelected = false
+                        self.btnSend.isEnabled = false
+                        let responseDic = object
+                        debugPrint(responseDic)
+                        if let status = responseDic.value(forKey: "success") as? Int
+                        {
+                            if(status == 1)
+                            {
+                                self.imgStr = ""
+                                self.arrChat.add(responseDic.value(forKey: "data") as! NSDictionary)
+                                self.tblChat.reloadData()
+                                let indexPath = IndexPath(row: self.arrChat.count - 1, section: 0)
+                                self.tblChat.scrollToRow(at: indexPath, at: .bottom, animated: false)
+                                self.textViewDidChange(self.txtViewMessage)
+                                
+                            }
+                            else {
+                                let msg = responseDic.value(forKey: "message") as? String ?? ""
+                                AppUtilities.sharedInstance.showAlert(title: App_Title as NSString, msg: msg as NSString)
+                            }
+                        }
+                        else
+                        {
+                            
+                        }
+                    }
+                    else
+                    {
+                        self.btnSend.isSelected = true
+                        self.btnSend.isEnabled = true
+                        AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "\(object.value(forKey: "message") as? String ?? "" )" as NSString)
+                        
+                    }
+                }
+                else
+                {
+                    self.btnSend.isSelected = true
+                    self.btnSend.isEnabled = true
+                    AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: (NSLocalizedString("Server is temporary down !! Plz try after sometime", comment: "Server is temporary down !! Plz try after sometime") as NSString))
+                }
+                
+            })
+        })
+    }
+    
+    //MARK:- UIImagePickerController Delegate -
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        var img1 = UIImage()
+        img1 = info[UIImagePickerControllerEditedImage] as! UIImage
+        //        imgProfile.image = img1
+        imgPro = img1
+        self.dismiss(animated: true, completion: nil)
+        self.uploadImageAndData()
+    }
+    
+    //MARK: - Upload Image Methods
+    func uploadImageAndData(){
+        let str : NSString = NSString()
+        AppUtilities.sharedInstance.showLoader()
+        self.uploadImageWithAlamofire(Parameters: [:], ImageParameters: [:], Action: str, success: { (response) in
+            debugPrint(response)
+            let res : NSDictionary = self.convertToDictionary(text: response as! String)
+            self.imgStr = res.value(forKey: "data") as? String ?? ""
+            AppUtilities.sharedInstance.hideLoader()
+            self.sendAttachment()
+        }) { (failure) in
+            debugPrint(failure)
+        }
+    }
+    
+    func uploadImageWithAlamofire(Parameters params : [String : AnyObject]?,ImageParameters imgparams :  [NSObject : AnyObject]?,Action action : NSString, success: @escaping (AnyObject) -> Void, failure: @escaping (AnyObject) -> Void)
+    {
+        
+        let URLName = "http://app.tradeingurus.com/upload/uploadattachment"
+        
+        let headers:[String:String] = [
+            "Accept": "multipart/form-data",
+            "Content-Type": "application/x-www-form-urlencoded"
+        ]
+        
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            
+            
+            if let imageData = UIImageJPEGRepresentation(self.imgPro, 0.7) {
+                multipartFormData.append(imageData, withName: "image", fileName: "\(NSDate().timeIntervalSince1970 * 1000)).jpg", mimeType: "image/jpg")
+            }
+            
+            if params != nil{
+                for (key, value) in params! {
+                    
+                    if value is String || value is Int {
+                        multipartFormData.append("\(value)".data(using: .utf8)!, withName: key)
+                    }
+                }
+            }
+            
+            
+        }, to: URLName, method: .post, headers: headers,
+           encodingCompletion: { encodingResult in
+            switch encodingResult {
+                
+            case .success(let upload, _, _):
+                upload.uploadProgress { progress in
+                    debugPrint(progress.fractionCompleted)
+                }
+                upload.response { [weak self] response in
+                    guard self != nil else {
+                        return
+                    }
+                    let responseString = String(data: response.data!, encoding: String.Encoding.utf8)
+                    DispatchQueue.main.async {
+                        return success(responseString as AnyObject)
+                    }
+                    
+                    
+                }
+            case .failure(let encodingError):
+                debugPrint("error:\(encodingError)")
+                return failure(encodingError as AnyObject)
+            }
+        })
+        
+    }
+    
+    
+    func convertToDictionary(text: String) -> NSDictionary {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
+            } catch {
+                debugPrint(error.localizedDescription)
+            }
+        }
+        return NSDictionary()
+    }
+    
     /*
      // MARK: - Navigation
      
@@ -450,14 +637,28 @@ extension ChatViewController : UITableViewDelegate, UITableViewDataSource {
         
         let dictChatConversion = arrChat.object(at: indexPath.row) as? NSDictionary
         let userID = dictChatConversion?.value(forKey: "fromId") as? String ?? ""
+        debugPrint(dictChatConversion?.value(forKey: "attachmenturl") as? String)
         if userID == AppUtilities.sharedInstance.getLoginUserId() {
-            let senderCell = tableView.dequeueReusableCell(withIdentifier: "SenderCell")  as! SenderCell
-            senderCell.lblSenderMsg.text = dictChatConversion?.value(forKey: "message") as? String ?? "hello"
+            var identifier = String()
+            if (!((dictChatConversion?.value(forKey: "attachmenturl") as? String)?.isEmpty)!) {
+                identifier = "SenderImg"
+            } else {
+                identifier = "SenderCell"
+            }
+            let senderCell = tableView.dequeueReusableCell(withIdentifier: identifier)  as! SenderCell
+            if (!((dictChatConversion?.value(forKey: "attachmenturl") as? String)?.isEmpty)!) {
+                if let imgURL = dictChatConversion?.value(forKey: "attachmenturl") as? String {
+                    senderCell.ImgSenderImg.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "default_tig_pic"))
+                }
+            } else {
+                senderCell.lblSenderMsg.text = dictChatConversion?.value(forKey: "message") as? String ?? "hello"
+                senderCell.viewSenderMsgBackgroung.layer.cornerRadius = 17
+                senderCell.viewSenderMsgBackgroung.clipsToBounds = true
+            }
+            
             if let imgURL = dictChatConversion?.value(forKey: "fromprofile") as? String {
                 senderCell.imgSenderUser.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "username_ic"))
             }
-            senderCell.viewSenderMsgBackgroung.layer.cornerRadius = 17
-            senderCell.viewSenderMsgBackgroung.clipsToBounds = true
             
             /// TIMESTAMP Added : HP ///
             var isoDate = dictChatConversion?.value(forKey: "create_date") as! String
@@ -465,15 +666,15 @@ extension ChatViewController : UITableViewDelegate, UITableViewDataSource {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd h:mm:ss"
             let date = dateFormatter.date(from: isoDate)
-
+            
             let startDate = dateFormatter.string(from: Date())
             let strDT = dateFormatter.date(from: startDate)
-
+            
             let dateRangeStart = date
             let dateRangeEnd = strDT
-
+            
             let components = Calendar.current.dateComponents([.second, .minute, .hour, .day], from: dateRangeStart!, to: dateRangeEnd!)
-
+            
             if (components.hour!) >= 1
             {
                 senderCell.lbl_sender_timeStamp.text = "\(components.hour ?? 0) hour ago"
@@ -487,17 +688,28 @@ extension ChatViewController : UITableViewDelegate, UITableViewDataSource {
             }
             ///////////////////////////
             
-            
-            
             return senderCell
         } else {
-            let reciverCell = tableView.dequeueReusableCell(withIdentifier: "ReciverCell")  as! ReciverCell
-            reciverCell.lblReciverMsg.text = dictChatConversion?.value(forKey: "message") as? String ?? "hello"
+            var identifier = String()
+            if (!((dictChatConversion?.value(forKey: "attachmenturl") as? String)?.isEmpty)!) {
+                identifier = "ReciverImg"
+            } else {
+                identifier = "ReciverCell"
+            }
+            let reciverCell = tableView.dequeueReusableCell(withIdentifier: identifier)  as! ReciverCell
+            if (!((dictChatConversion?.value(forKey: "attachmenturl") as? String)?.isEmpty)!) {
+                if let imgURL = dictChatConversion?.value(forKey: "attachmenturl") as? String {
+                    reciverCell.ImgReciverImg.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "default_tig_pic"))
+                }
+            } else {
+                reciverCell.lblReciverMsg.text = dictChatConversion?.value(forKey: "message") as? String ?? "hello"
+                reciverCell.viewReciverMsgBackgroung.layer.cornerRadius = 17
+                reciverCell.viewReciverMsgBackgroung.clipsToBounds = true
+            }
+            
             if let imgURL = dictChatConversion?.value(forKey: "fromprofile") as? String {
                 reciverCell.imgReciverUser.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "username_ic"))
             }
-            reciverCell.viewReciverMsgBackgroung.layer.cornerRadius = 17
-            reciverCell.viewReciverMsgBackgroung.clipsToBounds = true
             
             /// TIMESTAMP Added : HP ///
             var isoDate = dictChatConversion?.value(forKey: "create_date") as? String
@@ -552,7 +764,7 @@ extension ChatViewController {
     
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-          let contentYoffset = scrollView.contentOffset.y
+        let contentYoffset = scrollView.contentOffset.y
         
         if contentYoffset > 5 {
             tblChat.keyboardDismissMode = .onDrag

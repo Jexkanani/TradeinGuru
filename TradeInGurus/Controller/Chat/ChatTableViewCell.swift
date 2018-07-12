@@ -23,14 +23,14 @@ class SenderCell : UITableViewCell {
     @IBOutlet var lblSenderMsg : UILabel!
     @IBOutlet var viewSenderMsgBackgroung : UIView!
     @IBOutlet var lbl_sender_timeStamp: UILabel!
-    
+    @IBOutlet var ImgSenderImg : UIImageView!
 }
 
 class ReciverCell : UITableViewCell {
-    
     @IBOutlet var imgReciverUser : RoundedImageView!
     @IBOutlet var lblReciverMsg : UILabel!
     @IBOutlet var viewReciverMsgBackgroung : UIView!
     @IBOutlet var lbl_timeStamp: UILabel!
-    
+    @IBOutlet var ImgReciverImg : UIImageView!
 }
+
