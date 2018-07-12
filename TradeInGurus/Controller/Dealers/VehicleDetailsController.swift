@@ -98,17 +98,17 @@ class VehicleDetailsController: UIViewController,AACarouselDelegate {
         } else {
             //            lbl_V_Name.text = "\(userDic["make"] as? String ?? "Not Available")"
         }
-        //let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        //tap.delegate = self as? UIGestureRecognizerDelegate
-        //carouselView.addGestureRecognizer(tap) jex
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        tap.delegate = self as? UIGestureRecognizerDelegate
+        carouselView.addGestureRecognizer(tap)
     }
     
     func handleTap(_ sender: UITapGestureRecognizer) {
         //        print(carouselView.GetCurrentIndex())
-//        let ImgZoom = self.storyboard?.instantiateViewController(withIdentifier: "ImageZoomViewController") as! ImageZoomViewController
-//        ImgZoom.userDic = self.userDic
-        //        ImgZoom.currentIndex = carouselView.GetCurrentIndex() // jex
-//        self.navigationController?.pushViewController(ImgZoom, animated: true)
+        let ImgZoom = self.storyboard?.instantiateViewController(withIdentifier: "ImageZoomViewController") as! ImageZoomViewController
+        ImgZoom.userDic = self.userDic
+        ImgZoom.currentIndex = carouselView.GetCurrentIndex()
+        self.navigationController?.pushViewController(ImgZoom, animated: true)
     }
     
     /*extension String {

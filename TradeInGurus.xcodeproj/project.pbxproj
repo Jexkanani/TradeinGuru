@@ -37,6 +37,8 @@
 		8430265A1FB473D400EC766A /* SPGooglePlacesAutocompleteQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 843026541FB473D400EC766A /* SPGooglePlacesAutocompleteQuery.m */; };
 		8430265B1FB473D400EC766A /* SPGooglePlacesAutocompleteUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 843026561FB473D400EC766A /* SPGooglePlacesAutocompleteUtilities.m */; };
 		8430265C1FB473D400EC766A /* SPGooglePlacesPlaceDetailQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 843026581FB473D400EC766A /* SPGooglePlacesPlaceDetailQuery.m */; };
+		8434C36420F76CA700F343A9 /* ImageZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434C36320F76CA700F343A9 /* ImageZoomViewController.swift */; };
+		8434C36720F770BF00F343A9 /* EFImageViewZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434C36620F770BE00F343A9 /* EFImageViewZoom.swift */; };
 		8437B535203FD30300683EF9 /* Preferance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8437B534203FD30300683EF9 /* Preferance.swift */; };
 		843ACD6E1F53C74C004662B7 /* ACFloatingTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843ACD6D1F53C74C004662B7 /* ACFloatingTextfield.swift */; };
 		843C734F2089CF9E001C8F17 /* DealerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C734E2089CF9E001C8F17 /* DealerInfoViewController.swift */; };
@@ -165,6 +167,8 @@
 		843026561FB473D400EC766A /* SPGooglePlacesAutocompleteUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompleteUtilities.m; sourceTree = "<group>"; };
 		843026571FB473D400EC766A /* SPGooglePlacesPlaceDetailQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesPlaceDetailQuery.h; sourceTree = "<group>"; };
 		843026581FB473D400EC766A /* SPGooglePlacesPlaceDetailQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesPlaceDetailQuery.m; sourceTree = "<group>"; };
+		8434C36320F76CA700F343A9 /* ImageZoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageZoomViewController.swift; sourceTree = "<group>"; };
+		8434C36620F770BE00F343A9 /* EFImageViewZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EFImageViewZoom.swift; sourceTree = "<group>"; };
 		8437B534203FD30300683EF9 /* Preferance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Preferance.swift; path = ../../Preferance.swift; sourceTree = "<group>"; };
 		843ACD6D1F53C74C004662B7 /* ACFloatingTextfield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACFloatingTextfield.swift; sourceTree = "<group>"; };
 		843C734E2089CF9E001C8F17 /* DealerInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealerInfoViewController.swift; sourceTree = "<group>"; };
@@ -358,6 +362,7 @@
 		841E41A51F518099008CC41B /* Libaray */ = {
 			isa = PBXGroup;
 			children = (
+				8434C36520F770BE00F343A9 /* EFImageViewZoom */,
 				84F621481FE278CC001BEAD4 /* IQKeyboardManager */,
 				843026501FB473D400EC766A /* Google Location */,
 				84BBADFB1F69298A0030467E /* KingFisher */,
@@ -443,6 +448,14 @@
 			path = "Google Location";
 			sourceTree = "<group>";
 		};
+		8434C36520F770BE00F343A9 /* EFImageViewZoom */ = {
+			isa = PBXGroup;
+			children = (
+				8434C36620F770BE00F343A9 /* EFImageViewZoom.swift */,
+			);
+			path = EFImageViewZoom;
+			sourceTree = "<group>";
+		};
 		843ACD6C1F53C74C004662B7 /* ACFloatingTextfield */ = {
 			isa = PBXGroup;
 			children = (
@@ -491,6 +504,7 @@
 		84A91D081F54487100800067 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
+				8434C36320F76CA700F343A9 /* ImageZoomViewController.swift */,
 				8430264E1FB472B200EC766A /* CheckinpageViewController.swift */,
 				84A91D091F54488100800067 /* HomePageViewController.swift */,
 				84449BAC1F6A3768009F566D /* MyInterestViewController.swift */,
@@ -837,6 +851,7 @@
 				843ACD6E1F53C74C004662B7 /* ACFloatingTextfield.swift in Sources */,
 				84246826208AF8EB00FE7FBC /* OfferPage1.swift in Sources */,
 				849357841F67AB3E00BA1DEA /* README.md in Sources */,
+				8434C36720F770BF00F343A9 /* EFImageViewZoom.swift in Sources */,
 				849357851F67AB3E00BA1DEA /* SWRevealViewController.m in Sources */,
 				84BBAE1B1F69298A0030467E /* ImageProcessor.swift in Sources */,
 				843026591FB473D400EC766A /* SPGooglePlacesAutocompletePlace.m in Sources */,
@@ -893,6 +908,7 @@
 				84246828208AF9D300FE7FBC /* OfferPage2.swift in Sources */,
 				84BBADFA1F6929590030467E /* AACarousel.swift in Sources */,
 				84BBAE1E1F69298A0030467E /* Indicator.swift in Sources */,
+				8434C36420F76CA700F343A9 /* ImageZoomViewController.swift in Sources */,
 				84A91D0A1F54488100800067 /* HomePageViewController.swift in Sources */,
 				8430264F1FB472B200EC766A /* CheckinpageViewController.swift in Sources */,
 				84C435FA1F91F03800E12E86 /* TermsConditions.swift in Sources */,

@@ -9,9 +9,9 @@
 import UIKit
 
 @objc public protocol AACarouselDelegate {
-   @objc optional func didSelectCarouselView(_ view:AACarousel, _ index:Int)
-   @objc optional func callBackFirstDisplayView(_ imageView:UIImageView, _ url:[String], _ index:Int)
-   func downloadImages(_ url:String, _ index:Int)
+    @objc optional func didSelectCarouselView(_ view:AACarousel, _ index:Int)
+    @objc optional func callBackFirstDisplayView(_ imageView:UIImageView, _ url:[String], _ index:Int)
+    func downloadImages(_ url:String, _ index:Int)
 }
 
 let needDownload = "http"
@@ -144,7 +144,6 @@ public class AACarousel: UIView,UIScrollViewDelegate {
         scrollView.addSubview(beforeImageView)
         scrollView.addSubview(currentImageView)
         scrollView.addSubview(afterImageView)
-        
     }
     
     fileprivate func initWithGestureRecognizer() {
@@ -153,13 +152,13 @@ public class AACarousel: UIView,UIScrollViewDelegate {
         addGestureRecognizer(singleFinger)
         
     }
-   
+    
     fileprivate func initWithData(_ paths:[String],_ describedTitle:[String]) {
         
         currentIndex = 0
         images.removeAll()
         images.reserveCapacity(paths.count)
-     
+        
         //default image
         for _ in 0..<paths.count {
             images.append(UIImage(named: defaultImg ?? "") ?? UIImage())
@@ -221,7 +220,7 @@ public class AACarousel: UIView,UIScrollViewDelegate {
     fileprivate func setLabelFrame() {
         
         describedLabel.frame = CGRect.init(x: scrollView.frame.size.width * 2 + 10 , y: layerView.frame.size.height - 75, width: scrollView.frame.size.width - 20, height: 70)
-    
+        
     }
     
     
@@ -264,15 +263,19 @@ public class AACarousel: UIView,UIScrollViewDelegate {
         setNeedsLayout()
     }
     
+    public func GetCurrentIndex() -> NSInteger {
+        return currentIndex
+    }
+    
     //MARK:- set subviews show method
     public func setCarouselOpaque(layer:Bool, describedTitle:Bool, pageIndicator:Bool) {
-    
+        
         layerView.isHidden = layer
         describedLabel.isHidden = describedTitle
         pageControl.isHidden = pageIndicator
     }
     
-   
+    
     //MARK:- set data method
     public func setCarouselData(paths:[String],describedTitle:[String],isAutoScroll:Bool,timer:Double?,defaultImage:String?) {
         
@@ -417,7 +420,7 @@ public class AACarousel: UIView,UIScrollViewDelegate {
     }
     
     @objc fileprivate func autoScrollToNextImageView() {
-       
+        
         switch carouselMode {
         case .full:
             break
@@ -430,7 +433,7 @@ public class AACarousel: UIView,UIScrollViewDelegate {
     }
     
     @objc fileprivate func autoScrollToBeforeImageView() {
-       
+        
         switch carouselMode {
         case .full:
             break
@@ -456,7 +459,7 @@ public class AACarousel: UIView,UIScrollViewDelegate {
         }
     }
     
-   
+    
     //MARK:- UIScrollViewDelegate
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -493,7 +496,7 @@ public class AACarousel: UIView,UIScrollViewDelegate {
     
     
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-       
+        
         startAutoScroll()
         
     }
@@ -513,7 +516,7 @@ public class AACarousel: UIView,UIScrollViewDelegate {
             break
         }
         
-       
+        
     }
     
     //MARK:- handle current index
@@ -556,7 +559,7 @@ public class AACarousel: UIView,UIScrollViewDelegate {
         stopAutoScroll()
     }
     
-   
+    
     
 }
 
