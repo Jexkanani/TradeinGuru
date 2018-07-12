@@ -17,7 +17,7 @@ class PrefTableViewCell:UITableViewCell
 }
 
 class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UINavigationControllerDelegate,UITextViewDelegate {
-
+    
     var strPreferance : String = ""
     var arrDealID = NSMutableArray()
     var arrayCommon = NSMutableArray()
@@ -27,7 +27,9 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     var strMakeID = "1"
     var strModelID = "1"
     var strYearID = "1"
+    var strYearToID = "1"
     var strCommon = "make"
+    var bYearTo = false
     
     @IBOutlet var txtView: UITextView!
     @IBOutlet weak var tblViewPref: UITableView!
@@ -40,6 +42,7 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     
     var dictDealer = [//"VIN":"",
         "year":"",
+        "yearto":"",
         "make":"",
         "model":"",
         "mileage":"",
@@ -54,22 +57,27 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     //MARK: - Load -
     override func viewDidLoad() {
         super.viewDidLoad()
-//        txtView.text = strPreferance
+        //        txtView.text = strPreferance
         tblViewOffer.tableHeaderView = nil
         if let object = UserDefaults.standard.value(forKey: "Pref") as? NSDictionary {
             dictDealer.setValue(object.value(forKey: "year")! as? String ?? "1", forKey: "year")
+            strYearID = object.value(forKey: "year")! as? String ?? "1"
             dictDealer.setValue(object.value(forKey: "make")! as? String ?? "1", forKey: "make")
+            strMakeID = object.value(forKey: "make")! as? String ?? "1"
             dictDealer.setValue(object.value(forKey: "model")! as? String ?? "1", forKey: "model")
+            strModelID = object.value(forKey: "model")! as? String ?? "1"
+            dictDealer.setValue(object.value(forKey: "yearto")! as? String ?? "1", forKey: "yearto")
+            strYearToID = object.value(forKey: "yearto")! as? String ?? "1"
             debugPrint(dictDealer)
         }
         
         getYear()
-//        tblViewOffer.tableHeaderView = UIView(frame: rect)
-
+        //        tblViewOffer.tableHeaderView = UIView(frame: rect)
+        
     }
     
     //MARK: - Click Method -
-
+    
     @IBAction func btnBack(_ sender: Any)
     {
         self.navigationController?.popViewController(animated: true)
@@ -93,12 +101,15 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     
     @IBAction func btnCarDetailsClk(_ sender: UIButton) {
         
-        if sender.tag == 0 {
+        if sender.tag == 0 || sender.tag == 3 {
             strCommon = "year"
             arrayCommon = arrayYear
             tblViewMakeModelYear.reloadData()
             
             addSubviewToWidow()
+            if sender.tag == 3 {
+                bYearTo = true
+            }
         }
         else if sender.tag == 1 {
             if strYearID == "1" {
@@ -132,19 +143,37 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     }
     
     @IBAction func btnSubmitClk(_ sender: UIButton) {
-        AppUtilities.sharedInstance.showLoader()
+        let ToYear : Int = Int(strYearToID)!
+        let FromYear : Int = Int(strYearID)!
         
+        if strYearID == "1" {
+            AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "Select the Year From" as NSString)
+            return
+        } else if String(strYearToID) == "1" {
+            AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "Select the Year To" as NSString)
+            return
+        } else if strMakeID == "1" {
+            AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "Select the Make" as NSString)
+            return
+        } else if strModelID == "1" {
+            AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "Select the Model" as NSString)
+            return
+        } else if (ToYear < FromYear) {
+            AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "To year must be greter than From year" as NSString)
+            return
+        }
+        AppUtilities.sharedInstance.showLoader()
         let dictionaryParams : NSDictionary = [
             "service": "SavePref",
             "request" : [
                 "data": [
                     "year":strYearID,
+                    "yearto":strYearToID,
                     "make":strMakeID,
                     "model":strModelID
                 ]],
             "auth": ["id":AppUtilities.sharedInstance.getLoginUserId(),
                      "token": AppUtilities.sharedInstance.getLoginUserToken()]
-            
             ]  as NSDictionary
         
         debugPrint(dictionaryParams)
@@ -180,7 +209,6 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                 {
                     AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: (NSLocalizedString("Server is temporary down !! Plz try after sometime", comment: "Server is temporary down !! Plz try after sometime") as NSString))
                 }
-                
             })
         })
     }
@@ -193,7 +221,7 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     //MARK: - Table View Method -
     
     func numberOfSections(in tableView: UITableView) -> Int {
-//        return arrDealers.count
+        //        return arrDealers.count
         if tableView == tblViewMakeModelYear {
             
         } else {
@@ -227,20 +255,20 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         }
         else {
             var tableViewCell = tableView.dequeueReusableCell(withIdentifier: "PrefTableViewCell")!
-
-            if let tfyear = tableViewCell.viewWithTag(15) as? UITextField
-            {
-                tfyear.text = dictDealer["model"] as? String ?? ""
-                setCorner(tfyear)
-                tfyear.attributedPlaceholder = NSAttributedString(string: "Model",
-                                                                  attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.8)])
-            }
+            
             if let tfmake = tableViewCell.viewWithTag(20) as? UITextField
             {
                 tfmake.text = dictDealer["year"] as? String ?? ""
                 setCorner(tfmake)
-                tfmake.attributedPlaceholder = NSAttributedString(string: "Year",
+                tfmake.attributedPlaceholder = NSAttributedString(string: "Year From",
                                                                   attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.8)])
+            }
+            if let tfmodel = tableViewCell.viewWithTag(30) as? UITextField
+            {
+                tfmodel.text = dictDealer["yearto"] as? String ?? ""
+                setCorner(tfmodel)
+                tfmodel.attributedPlaceholder = NSAttributedString(string: "Year To",
+                                                                   attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.8)])
             }
             if let tfmodel = tableViewCell.viewWithTag(25) as? UITextField
             {
@@ -249,7 +277,13 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                 tfmodel.attributedPlaceholder = NSAttributedString(string: "Make",
                                                                    attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.8)])
             }
-        
+            if let tfyear = tableViewCell.viewWithTag(15) as? UITextField
+            {
+                tfyear.text = dictDealer["model"] as? String ?? ""
+                setCorner(tfyear)
+                tfyear.attributedPlaceholder = NSAttributedString(string: "Model",
+                                                                  attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.8)])
+            }
             
             
             return tableViewCell
@@ -273,7 +307,7 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
             return 40
         }
         else {
-            return 210
+            return 254
         }
     }
     
@@ -287,11 +321,19 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         if tableView == tblViewMakeModelYear{
             let dict = arrayCommon.object(at: indexPath.row) as! NSDictionary
             if strCommon == "year" {
-                strCommon = "make"
-                strYearID =  dict.value(forKey: "year") as? String ?? "1"
-                
-                dictDealer.setValue(dict.value(forKey: "year") as? String ?? "1", forKey: "year")
-                getMake()
+                if (bYearTo) {
+                    bYearTo = false
+                    strYearToID =  dict.value(forKey: "year") as? String ?? "1"
+                    dictDealer.setValue(dict.value(forKey: "year") as? String ?? "1", forKey: "yearto")
+                    
+                    self.removeSubviewFromWindow()
+                } else {
+                    strCommon = "make"
+                    strYearID =  dict.value(forKey: "year") as? String ?? "1"
+                    
+                    dictDealer.setValue(dict.value(forKey: "year") as? String ?? "1", forKey: "year")
+                    getMake()
+                }
             } else if strCommon == "model" {
                 dictDealer.setValue(dict.value(forKey: "model") as? String ?? "1", forKey: "model")
                 strModelID = dict.value(forKey: "model") as? String ?? "1"
@@ -300,7 +342,6 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                 strCommon = "model"
                 dictDealer.setValue(dict.value(forKey: "make") as? String ?? "1", forKey: "make")
                 strMakeID = dict.value(forKey: "make") as? String ?? "1"
-                
                 getModel()
             }
             debugPrint(dictDealer)
@@ -586,6 +627,8 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         }
         else if textField.tag == 25{
             dictDealer.setValue(newText, forKey: "make")
+        } else if textField.tag == 30 {
+            dictDealer.setValue(newText, forKey: "yearto")
         }
         
         return true
@@ -606,10 +649,11 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         
         let newText = NSString(string: textView.text!).replacingCharacters(in: range, with: text)
         
-//        if textView.tag == 501 {
-//            dictDealer.setValue(newText, forKey: "description")
-//        }
+        //        if textView.tag == 501 {
+        //            dictDealer.setValue(newText, forKey: "description")
+        //        }
         
         return true
     }
 }
+
