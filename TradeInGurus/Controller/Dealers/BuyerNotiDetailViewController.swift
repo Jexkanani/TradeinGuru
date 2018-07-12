@@ -17,18 +17,18 @@ class cellNoti : UITableViewCell {
 
 
 class BuyerNotiDetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-
+    
     @IBOutlet var tblData : UITableView!
     @IBOutlet var lblTitle : UILabel!
     @IBOutlet var lblNavTitle : UILabel!
     @IBOutlet var viewError404 : UIView!
-
+    
     var arrDic : NSDictionary = NSDictionary()
     var arrData : NSMutableArray = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        arrDic
+        //        arrDic
         lblNavTitle.text = "\(arrDic.value(forKey: "v_year") as? String ?? "") \(arrDic.value(forKey: "v_make") as? String ?? "") \(arrDic.value(forKey: "v_model") as? String ?? "")"
         self.getVehicleRequest()
         viewError404.isHidden = true
@@ -37,7 +37,7 @@ class BuyerNotiDetailViewController: UIViewController,UITableViewDelegate,UITabl
         tblData.rowHeight = UITableViewAutomaticDimension
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -47,7 +47,7 @@ class BuyerNotiDetailViewController: UIViewController,UITableViewDelegate,UITabl
     
     //MARK: - All Button Action Methods -
     
-
+    
     @IBAction func clkBack(sender : UIButton){
         self.navigationController?.popViewController(animated: true)
     }
@@ -55,21 +55,80 @@ class BuyerNotiDetailViewController: UIViewController,UITableViewDelegate,UITabl
     
     @IBAction func clkPush(sender : UIButton)
     {
-        let chatVC = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-        chatVC.isFromBuyerNoti = true
-        chatVC.dictChatUser = NSMutableDictionary(dictionary: arrData.object(at: sender.tag) as! NSDictionary)
-        self.navigationController?.pushViewController(chatVC, animated: true)
+        
+        self.view.endEditing(true)
+        AppUtilities.sharedInstance.showLoader()
+        let dic : NSDictionary = arrData.object(at: sender.tag) as! NSDictionary
+        let dictionaryParams : NSDictionary = [
+            "service": "SetCustomerInterestChat",
+            "request" : [
+                "data": [
+                    "cust_id": dic.value(forKey: "user_id")!,
+                    "vid": dic.value(forKey: "vid")!,
+                    "ischat": "1"
+                ]
+            ],
+            
+            "auth": ["id":AppUtilities.sharedInstance.getLoginUserId(),
+                     "token": AppUtilities.sharedInstance.getLoginUserToken()]
+            
+            ]  as NSDictionary
+        
+        debugPrint(dictionaryParams)
+        
+        AppUtilities.sharedInstance.dataTaskLocal(method: "POST", params: dictionaryParams,strMethod: "", completion: { (success, object) in
+            DispatchQueue.main.async( execute: {
+                
+                AppUtilities.sharedInstance.hideLoader()
+                if let object = object as? NSDictionary
+                {
+                    if  (object.value(forKey: "success") as? Bool) != nil
+                    {
+                        let responseDic = object
+                        debugPrint(responseDic)
+                        if let status = responseDic.value(forKey: "success") as? Int
+                        {
+                            if(status == 1)
+                            {
+                                let chatVC = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+                                chatVC.isFromBuyerNoti = true
+                                chatVC.dictChatUser = NSMutableDictionary(dictionary: self.self.arrData.object(at: sender.tag) as! NSDictionary)
+                                self.navigationController?.pushViewController(chatVC, animated: true)
+                            }
+                            else{
+                                if let errorMsg = responseDic.value(forKey: "msg") as? String{
+                                    AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
+                                }
+                            }
+                        }
+                        else
+                        {
+                            
+                        }
+                    }
+                    else
+                    {
+                        AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "\(object.value(forKey: "message") as? String ?? "" )" as NSString)
+                    }
+                }
+                else
+                {
+                    AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: (NSLocalizedString("Server is temporary down !! Plz try after sometime", comment: "Server is temporary down !! Plz try after sometime") as NSString))
+                }
+            })
+        })
+        
         
         /*
-        let dic : NSDictionary = arrData.object(at: sender.tag) as! NSDictionary
-        
-        let vid = dic.value(forKey: "vid") as? String ?? ""
-        let userId = dic.value(forKey: "user_id") as? String ?? ""
-        
-        AppApi.sharedInstance.sendPushNoti(vid: vid, userID: userId, isOffer: false)*/
+         let dic : NSDictionary = arrData.object(at: sender.tag) as! NSDictionary
+         
+         let vid = dic.value(forKey: "vid") as? String ?? ""
+         let userId = dic.value(forKey: "user_id") as? String ?? ""
+         
+         AppApi.sharedInstance.sendPushNoti(vid: vid, userID: userId, isOffer: false)*/
     }
-
-
+    
+    
     //MARK: - Table View Delegate Methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,7 +139,7 @@ class BuyerNotiDetailViewController: UIViewController,UITableViewDelegate,UITabl
         let dic : NSDictionary = arrData.object(at: indexPath.row) as! NSDictionary
         let cell : cellNoti = tableView.dequeueReusableCell(withIdentifier: "cellNoti") as! cellNoti
         cell.lblAdd.text = dic["address"] as? String ?? ""
-//        cell.lblNum.text = "#\(indexPath.row + 1)"
+        //        cell.lblNum.text = "#\(indexPath.row + 1)"
         cell.lblNum.text = " • "
         cell.lblName.text = dic["fullname"] as? String ?? ""
         cell.btnPushNoti.tag = indexPath.row
@@ -121,22 +180,22 @@ class BuyerNotiDetailViewController: UIViewController,UITableViewDelegate,UITabl
                             {
                                 if let arr = responseDic.value(forKey: "data") as? NSArray
                                 {
-                                   self.arrData = NSMutableArray.init(array: arr)
-                                   self.tblData.reloadData()
+                                    self.arrData = NSMutableArray.init(array: arr)
+                                    self.tblData.reloadData()
                                 }
                             }
                             else{
-//                                if let errorMsg = responseDic.value(forKey: "msg") as? String{
-//                                    AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
-//                                }
+                                //                                if let errorMsg = responseDic.value(forKey: "msg") as? String{
+                                //                                    AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
+                                //                                }
                             }
                             
                             self.tblData.isHidden = false
-
+                            
                             if self.arrData.count == 0{
                                 self.viewError404.isHidden = false
                                 self.tblData.isHidden = true
-
+                                
                             }
                             
                         }
@@ -159,7 +218,10 @@ class BuyerNotiDetailViewController: UIViewController,UITableViewDelegate,UITabl
             })
         })
     }
-
     
-    
+    func SetCustomerInterestChat()
+    {
+        
+    }
 }
+

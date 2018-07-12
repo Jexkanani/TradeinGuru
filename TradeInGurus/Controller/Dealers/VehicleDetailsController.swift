@@ -16,17 +16,17 @@ class VehicleDetailsController: UIViewController,AACarouselDelegate {
     @IBOutlet var lblModel : UILabel!
     @IBOutlet var lblMileage : UILabel!
     @IBOutlet var lblVIN : UILabel!
-//    @IBOutlet var lblDealerName : UILabel!
-//    @IBOutlet var lblDealerPhone : UILabel!
-//    @IBOutlet var lblDealerEmail : UILabel!
-//    @IBOutlet var lblAddress : UILabel!
-//    @IBOutlet var lblCity : UILabel!
-//    @IBOutlet var lblZipCode : UILabel!
+    //    @IBOutlet var lblDealerName : UILabel!
+    //    @IBOutlet var lblDealerPhone : UILabel!
+    //    @IBOutlet var lblDealerEmail : UILabel!
+    //    @IBOutlet var lblAddress : UILabel!
+    //    @IBOutlet var lblCity : UILabel!
+    //    @IBOutlet var lblZipCode : UILabel!
     @IBOutlet var lblDescription : UILabel!
-  //  @IBOutlet var lblPrice : UILabel!
-//    @IBOutlet var lblCustName : UILabel!
-//    @IBOutlet var lblCustAdd : UILabel!
-
+    //  @IBOutlet var lblPrice : UILabel!
+    //    @IBOutlet var lblCustName : UILabel!
+    //    @IBOutlet var lblCustAdd : UILabel!
+    
     @IBOutlet var lbl_V_Name: UILabel!
     
     var userDic : NSDictionary = NSDictionary()
@@ -34,17 +34,17 @@ class VehicleDetailsController: UIViewController,AACarouselDelegate {
     var isNotific = false
     var isFrom : String = String()
     let userType = AppUtilities.sharedInstance.getLoginUserType()
-//    var isFrom : String
+    //    var isFrom : String
     override func viewDidLoad() {
         super.viewDidLoad()
         
         userInfo = AppUtilities.sharedInstance.getLoginDict()
         
-//        if userDic["v_name"] as? String == "" == "" {
-//            lbl_V_Name.text = "\(userDic["v_make"] as? String ?? "Not Available")"
-//        } else {
-            lbl_V_Name.text = "\(userDic["v_name"] as? String ?? "Not Available")"
-//        }
+        //        if userDic["v_name"] as? String == "" == "" {
+        //            lbl_V_Name.text = "\(userDic["v_make"] as? String ?? "Not Available")"
+        //        } else {
+        lbl_V_Name.text = "\(userDic["v_name"] as? String ?? "Not Available")"
+        //        }
         
         lblYear.text = ": \(userDic["v_year"] as? String ?? "Not Available")"
         lblModel.text = ": \(userDic["v_model"] as? String ?? "Not Available")"
@@ -55,14 +55,15 @@ class VehicleDetailsController: UIViewController,AACarouselDelegate {
         } else {
             lblVIN.text = ": \(userDic["v_number"] as? String ?? "Not Available")"
         }
-//        lblDealerName.text = userInfo.value(forKey: "fullname") as? String ?? ""
-//        lblDealerPhone.text = userInfo.value(forKey: "mobile") as? String ?? ""
-//        lblDealerEmail.text = userInfo.value(forKey: "email") as? String ?? ""
-//        lblAddress.text = AppUtilities.sharedInstance.getLoginAddress() //userDic["address"] as? String ??
-//        lblCity.text = AppUtilities.sharedInstance.getLoginCity() //userDic["city"] as? String ??
-//        lblZipCode.text = AppUtilities.sharedInstance.getLoginPincode() //userDic["pincode"] as? String ??
-//        lblCustName.text = userDic["fullname"] as? String ?? ""
-//        lblCustAdd.text = userDic["address"] as? String ?? ""
+        
+        //        lblDealerName.text = userInfo.value(forKey: "fullname") as? String ?? ""
+        //        lblDealerPhone.text = userInfo.value(forKey: "mobile") as? String ?? ""
+        //        lblDealerEmail.text = userInfo.value(forKey: "email") as? String ?? ""
+        //        lblAddress.text = AppUtilities.sharedInstance.getLoginAddress() //userDic["address"] as? String ??
+        //        lblCity.text = AppUtilities.sharedInstance.getLoginCity() //userDic["city"] as? String ??
+        //        lblZipCode.text = AppUtilities.sharedInstance.getLoginPincode() //userDic["pincode"] as? String ??
+        //        lblCustName.text = userDic["fullname"] as? String ?? ""
+        //        lblCustAdd.text = userDic["address"] as? String ?? ""
         
         lblDescription.text = ": \(userDic.value(forKey: "description") as? String ?? "Not Available")"
         if lblDescription.text == "" {
@@ -71,9 +72,9 @@ class VehicleDetailsController: UIViewController,AACarouselDelegate {
         if lblVIN.text == "" {
             lblVIN.text = ": \("Not Available")"
         }
-//        lblDescription.numberOfLines = 5
-//        lblDescription.sizeToFit()
-       // lblPrice.text = userDic["v_price"] as? String ?? ""
+        //        lblDescription.numberOfLines = 5
+        //        lblDescription.sizeToFit()
+        // lblPrice.text = userDic["v_price"] as? String ?? ""
         debugPrint(userDic)
         var pathArray = NSArray()
         
@@ -88,33 +89,43 @@ class VehicleDetailsController: UIViewController,AACarouselDelegate {
         
         carouselView.setCarouselLayout(displayStyle: 0, pageIndicatorPositon: 2, pageIndicatorColor: nil, describedTitleColor: nil, layerColor: nil)
         
-//        if self.isFrom == "delearNoti" {
-//            lbl_V_Name.text = "\(userDic["v_make"] as? String ?? "Not Available")"
-//        }
+        //        if self.isFrom == "delearNoti" {
+        //            lbl_V_Name.text = "\(userDic["v_make"] as? String ?? "Not Available")"
+        //        }
         if !isNotific
         {
             
         } else {
-//            lbl_V_Name.text = "\(userDic["make"] as? String ?? "Not Available")"
+            //            lbl_V_Name.text = "\(userDic["make"] as? String ?? "Not Available")"
         }
-        
+        //let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        //tap.delegate = self as? UIGestureRecognizerDelegate
+        //carouselView.addGestureRecognizer(tap) jex
+    }
+    
+    func handleTap(_ sender: UITapGestureRecognizer) {
+        //        print(carouselView.GetCurrentIndex())
+//        let ImgZoom = self.storyboard?.instantiateViewController(withIdentifier: "ImageZoomViewController") as! ImageZoomViewController
+//        ImgZoom.userDic = self.userDic
+        //        ImgZoom.currentIndex = carouselView.GetCurrentIndex() // jex
+//        self.navigationController?.pushViewController(ImgZoom, animated: true)
     }
     
     /*extension String {
-        func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
-            let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-            let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
-            
-            return ceil(boundingBox.height)
-        }
-        
-        func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
-            let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
-            let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
-            
-            return ceil(boundingBox.width)
-        }
-    }*/
+     func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+     let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+     let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+     
+     return ceil(boundingBox.height)
+     }
+     
+     func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
+     let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+     let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+     
+     return ceil(boundingBox.width)
+     }
+     }*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -131,7 +142,6 @@ class VehicleDetailsController: UIViewController,AACarouselDelegate {
         imageView.kf.setImage(with: URL(string: url)!, placeholder: UIImage.init(named: "default_tig_pic"), options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { (downloadImage, error, cacheType, url) in
             self.carouselView.images[index] = downloadImage!
         })
-        
     }
     
     
@@ -153,10 +163,7 @@ class VehicleDetailsController: UIViewController,AACarouselDelegate {
         carouselView.stopScrollImageView()
     }
     
-    
     //MARK: - All Button Action Methods
-    
-    
     @IBAction func clkBack(sender : UIButton){
         self.navigationController?.popViewController(animated: true)
     }
@@ -168,7 +175,6 @@ class VehicleDetailsController: UIViewController,AACarouselDelegate {
         if isNotific == true {
             vid = userDic.value(forKey: "id") as? String ?? ""
             userId = userDic.value(forKey: "userid") as? String ?? ""
-            
         }
         else {
             vid = userDic.value(forKey: "vid") as? String ?? ""
@@ -187,14 +193,13 @@ class VehicleDetailsController: UIViewController,AACarouselDelegate {
     }
     
     @IBAction func btnChatClk(_ sender: UIButton) {
+        //        print(carouselView.GetCurrentIndex())
         let chatVC = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
         chatVC.dictChatUser = NSMutableDictionary(dictionary: userDic)
         if isNotific == true {
             chatVC.isResquest = true
         }
-        
         self.navigationController?.pushViewController(chatVC, animated: true)
     }
-    
-    
 }
+

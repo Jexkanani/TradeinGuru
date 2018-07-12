@@ -19,10 +19,11 @@ class detail_cell: UITableViewCell {
     @IBOutlet var lblDescription : UILabel!
     @IBOutlet var lbl_V_Name: UILabel!
     @IBOutlet var chat_Btn: UIButton!
+    
 }
 
 class VehicleDetailVC: UIViewController, UITableViewDelegate , UITableViewDataSource , AACarouselDelegate {
-
+    
     var userDic : NSDictionary = NSDictionary()
     var userInfo = NSDictionary()
     var isNotific = false
@@ -32,7 +33,7 @@ class VehicleDetailVC: UIViewController, UITableViewDelegate , UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         self.tbl_detail.estimatedRowHeight = 475
@@ -44,8 +45,9 @@ class VehicleDetailVC: UIViewController, UITableViewDelegate , UITableViewDataSo
         {
             
         }
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -84,7 +86,7 @@ class VehicleDetailVC: UIViewController, UITableViewDelegate , UITableViewDataSo
         } else {
             pathArray = userDic["images"] as! NSArray
         }
-
+        
         cell.carouselView.delegate = self
         
         if pathArray.count == 0 {
@@ -95,10 +97,10 @@ class VehicleDetailVC: UIViewController, UITableViewDelegate , UITableViewDataSo
         
         
         cell.carouselView.setCarouselLayout(displayStyle: 0, pageIndicatorPositon: 2, pageIndicatorColor: nil, describedTitleColor: nil, layerColor: nil)
-
+        
         return cell
     }
-
+    
     //MARK: - Button Action
     
     @IBAction func btn_back(_ sender: UIButton) {
@@ -142,5 +144,6 @@ class VehicleDetailVC: UIViewController, UITableViewDelegate , UITableViewDataSo
         //optional method
         cell.carouselView.stopScrollImageView()
     }
-
+    
 }
+
