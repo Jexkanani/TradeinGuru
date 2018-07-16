@@ -532,7 +532,7 @@ class NewDealerPostViewController:  UIViewController,UITableViewDataSource,UITab
             debugPrint(key)
             if let valuedd = value as? String{
                 if valuedd == "" {
-                    if key as! String != "VIN" {
+                    if key as! String != "VIN" && key as! String != "name" {
                         AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "Please insert \(key) value." as NSString)
                         return false
                     }

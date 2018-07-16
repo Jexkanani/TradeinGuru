@@ -859,11 +859,11 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     
     
     //MARK: - Memory Management -
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     //MARK: - All Button Action -
     @IBAction func btnHomePressed(_ sender: Any) {
         self.view.endEditing(true)
@@ -872,7 +872,7 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     
     @IBAction func btnOfferPressed(_ sender: Any) {
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
-        if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "OffersListViewController") as? OffersListViewController{
+        if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "OffersListViewController") as? OffersListViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

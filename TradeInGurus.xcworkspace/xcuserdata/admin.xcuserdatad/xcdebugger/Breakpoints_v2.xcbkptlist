@@ -35,8 +35,8 @@
                   symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.AnyObject&gt;) -&gt; () in TradeInGurus.OfferRequestViewController.getMake() -&gt; ()"
                   moduleName = "TradeInGurus"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Data/SourceCode/Tradeinguru/TradeInGurus/TradeInGurus/Controller/Offers/OfferRequestViewController.swift"
-                  timestampString = "547793792.7341779"
+                  urlString = "file:///Users/admin/Documents/TradeinGuru1/TradeInGurus/Controller/Offers/OfferRequestViewController.swift"
+                  timestampString = "553423365.058255"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "500"
@@ -50,8 +50,8 @@
                   symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Bool, Swift.Optional&lt;Swift.AnyObject&gt;) -&gt; () in TradeInGurus.OfferRequestViewController.getMake() -&gt; ()"
                   moduleName = "TradeInGurus"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Data/SourceCode/Tradeinguru/TradeInGurus/TradeInGurus/Controller/Offers/OfferRequestViewController.swift"
-                  timestampString = "547793792.7356139"
+                  urlString = "file:///Users/admin/Documents/TradeinGuru1/TradeInGurus/Controller/Offers/OfferRequestViewController.swift"
+                  timestampString = "553423365.060315"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "500"
@@ -99,8 +99,8 @@
                   symbolName = "TradeInGurus.RegisterViewController.isCredentialValid() -&gt; Swift.Bool"
                   moduleName = "TradeInGurus"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Data/SourceCode/Tradeinguru/TradeInGurus/TradeInGurus/Controller/Login/RegisterViewController.swift"
-                  timestampString = "547793792.769742"
+                  urlString = "file:///Users/admin/Documents/TradeinGuru1/TradeInGurus/Controller/Login/RegisterViewController.swift"
+                  timestampString = "553423365.064697"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "92"
@@ -114,8 +114,8 @@
                   symbolName = "TradeInGurus.RegisterViewController.isCredentialValid() -&gt; Swift.Bool"
                   moduleName = "TradeInGurus"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Data/SourceCode/Tradeinguru/TradeInGurus/TradeInGurus/Controller/Login/RegisterViewController.swift"
-                  timestampString = "547793792.7712851"
+                  urlString = "file:///Users/admin/Documents/TradeinGuru1/TradeInGurus/Controller/Login/RegisterViewController.swift"
+                  timestampString = "553423365.066505"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "92"
@@ -387,8 +387,8 @@
                   symbolName = "TradeInGurus.OfferReqReceivedController.tableView(__ObjC.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
                   moduleName = "TradeInGurus"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Data/SourceCode/Tradeinguru/TradeInGurus/TradeInGurus/Controller/Dealers/OfferReqReceivedController.swift"
-                  timestampString = "547793792.805741"
+                  urlString = "file:///Users/admin/Documents/TradeinGuru1/TradeInGurus/Controller/Dealers/OfferReqReceivedController.swift"
+                  timestampString = "553423365.089318"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "82"
@@ -402,8 +402,8 @@
                   symbolName = "TradeInGurus.OfferReqReceivedController.tableView(__ObjC.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
                   moduleName = "TradeInGurus"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Data/SourceCode/Tradeinguru/TradeInGurus/TradeInGurus/Controller/Dealers/OfferReqReceivedController.swift"
-                  timestampString = "547793792.807668"
+                  urlString = "file:///Users/admin/Documents/TradeinGuru1/TradeInGurus/Controller/Dealers/OfferReqReceivedController.swift"
+                  timestampString = "553423365.091194"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "82"
@@ -452,43 +452,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/HomePage/DealerInfoViewController.swift"
-            timestampString = "547454293.259837"
+            timestampString = "553174175.644179"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "getDealerOffer()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TradeInGurus/Controller/HomePage/DealerInfoViewController.swift"
-            timestampString = "547454293.259882"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TradeInGurus/Controller/HomePage/DealerInfoViewController.swift"
-            timestampString = "547454293.259923"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
             landmarkName = "getDealerOffer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -500,11 +468,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/HomePage/DealerInfoViewController.swift"
-            timestampString = "547454293.259962"
+            timestampString = "553174175.644815"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/DealerInfoViewController.swift"
+            timestampString = "553174175.645173"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "getDealerOffer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/DealerInfoViewController.swift"
+            timestampString = "553174175.645535"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -915,8 +915,8 @@
                   symbolName = "TradeInGurus.LoginViewController.login() -&gt; ()"
                   moduleName = "TradeInGurus"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Data/SourceCode/Tradeinguru/TradeInGurus/TradeInGurus/Controller/Login/LoginViewController.swift"
-                  timestampString = "547793792.837755"
+                  urlString = "file:///Users/admin/Documents/TradeinGuru1/TradeInGurus/Controller/Login/LoginViewController.swift"
+                  timestampString = "553423365.117521"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "233"
@@ -930,8 +930,8 @@
                   symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.AnyObject&gt;) -&gt; () in TradeInGurus.LoginViewController.login() -&gt; ()"
                   moduleName = "TradeInGurus"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Data/SourceCode/Tradeinguru/TradeInGurus/TradeInGurus/Controller/Login/LoginViewController.swift"
-                  timestampString = "547793792.839298"
+                  urlString = "file:///Users/admin/Documents/TradeinGuru1/TradeInGurus/Controller/Login/LoginViewController.swift"
+                  timestampString = "553423365.1194611"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "234"
@@ -1028,7 +1028,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.405108"
+            timestampString = "553423748.14397"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "50"
@@ -1044,7 +1044,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.405157"
+            timestampString = "553423748.144444"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "591"
@@ -1060,7 +1060,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.405197"
+            timestampString = "553423748.144733"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1156"
@@ -1076,7 +1076,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.405236"
+            timestampString = "553423748.144987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "817"
@@ -1092,7 +1092,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.405275"
+            timestampString = "553423748.145229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "86"
@@ -1108,7 +1108,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.405311"
+            timestampString = "553423748.145461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "662"
@@ -1124,7 +1124,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.405349"
+            timestampString = "553423748.14571"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1398"
@@ -1204,7 +1204,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.405516"
+            timestampString = "553423748.146054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1450"
@@ -1216,11 +1216,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.405558"
+            timestampString = "553423748.146322"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1406"
@@ -1236,7 +1236,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.405598"
+            timestampString = "553423748.146577"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1486"
@@ -1252,7 +1252,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.4056799"
+            timestampString = "553423748.146829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1400"
@@ -1268,7 +1268,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.40572"
+            timestampString = "553423748.147081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1398"
@@ -1376,7 +1376,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/HomePage/Listings.swift"
@@ -1392,7 +1392,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/HomePage/Listings.swift"
@@ -1408,7 +1408,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/HomePage/Listings.swift"
@@ -1764,7 +1764,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.410107"
+            timestampString = "553423748.147648"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1543"
@@ -1779,8 +1779,8 @@
                   symbolName = "TradeInGurus.NewDealerPostViewController.nextSaveData() -&gt; ()"
                   moduleName = "TradeInGurus"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Data/SourceCode/Tradeinguru/TradeInGurus/TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-                  timestampString = "547793792.979103"
+                  urlString = "file:///Users/admin/Documents/TradeinGuru1/TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
+                  timestampString = "553423365.17237"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1544"
@@ -1794,8 +1794,8 @@
                   symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.AnyObject&gt;) -&gt; () in TradeInGurus.NewDealerPostViewController.nextSaveData() -&gt; ()"
                   moduleName = "TradeInGurus"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Data/SourceCode/Tradeinguru/TradeInGurus/TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-                  timestampString = "547793792.98074"
+                  urlString = "file:///Users/admin/Documents/TradeinGuru1/TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
+                  timestampString = "553423365.174624"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1545"
@@ -1812,12 +1812,252 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
-            timestampString = "547532791.4101551"
+            timestampString = "553423748.14792"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1548"
             endingLineNumber = "1548"
             landmarkName = "nextSaveData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/HomePageViewController.swift"
+            timestampString = "553423748.1483001"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "869"
+            endingLineNumber = "869"
+            landmarkName = "btnHomePressed(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/HomePageViewController.swift"
+            timestampString = "553423748.148703"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "875"
+            endingLineNumber = "875"
+            landmarkName = "btnOfferPressed(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/HomePageViewController.swift"
+            timestampString = "553423748.149018"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "882"
+            endingLineNumber = "882"
+            landmarkName = "btnNotificationPressed(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/HomePageViewController.swift"
+            timestampString = "553423748.149336"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "891"
+            endingLineNumber = "891"
+            landmarkName = "btnPostNewDealerPressed(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/HomePageViewController.swift"
+            timestampString = "553423748.149617"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "898"
+            endingLineNumber = "898"
+            landmarkName = "btnPostNewCustomerPressed(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/HomePageViewController.swift"
+            timestampString = "553423748.149899"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "911"
+            endingLineNumber = "911"
+            landmarkName = "btnReceivedRequestPressed(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/HomePageViewController.swift"
+            timestampString = "553423748.150176"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "919"
+            endingLineNumber = "919"
+            landmarkName = "btnInterestPressed(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/HomePageViewController.swift"
+            timestampString = "553423748.150456"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "927"
+            endingLineNumber = "927"
+            landmarkName = "btnDealearsPressed(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/DealerListViewController.swift"
+            timestampString = "553159758.624612"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/DealerInfoViewController.swift"
+            timestampString = "553174175.652454"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/HomePageViewController.swift"
+            timestampString = "553423748.150776"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/VehicleDetailViewController.swift"
+            timestampString = "553422737.811428"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/HomePage/VehicleDetailViewController.swift"
+            timestampString = "553422737.8117369"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
+            timestampString = "553423748.151081"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1503"
+            endingLineNumber = "1503"
+            landmarkName = "nextSaveData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TradeInGurus/Controller/Dealers/NewDealerPostViewController.swift"
+            timestampString = "553423748.151348"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "534"
+            endingLineNumber = "534"
+            landmarkName = "isValidall()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

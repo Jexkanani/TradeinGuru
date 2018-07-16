@@ -19,6 +19,8 @@ class DealerInfoTableViewCell:UITableViewCell
     @IBOutlet weak var lblDealerState: UILabel!
     @IBOutlet weak var lblDealerCountry: UILabel!
     @IBOutlet weak var lblDealerPincode: UILabel!
+    @IBOutlet weak var btnEditHeight : NSLayoutConstraint!
+    @IBOutlet weak var btnDeleteHeight : NSLayoutConstraint!
 }
 
 class DealerInfoViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
@@ -32,7 +34,6 @@ class DealerInfoViewController: UIViewController,UITableViewDelegate,UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         tblViewDealear.rowHeight = UITableViewAutomaticDimension
         tblViewDealear.estimatedRowHeight = 290
         getDealerOffer()
@@ -70,8 +71,8 @@ class DealerInfoViewController: UIViewController,UITableViewDelegate,UITableView
             
             let dictDealer = arrOffers.object(at: indexPath.row) as?NSDictionary
             tableViewCell.lblOfferName.text = dictDealer?["v_name"] as? String ?? ""
-            tableViewCell.lblOfferMobile.text = "Make : " + "\(dictDealer?["make"] as? String ?? "")"
-            tableViewCell.lblOfferAddress.text = dictDealer?["address"] as? String ?? ""
+            tableViewCell.lblOfferMobile.text =  "Make : " + "\(dictDealer?["v_model"] as? String ?? "")" //make
+            tableViewCell.lblOfferAddress.text = "Address : " + "\(dictDealer?["address"] as? String ?? "")"
             tableViewCell.lblOfferdatetime.text = "Date : " + "\(dictDealer?["creation_datetime"] as? String ?? "")"
             tableViewCell.lblOfferNumber.text = " • "
             tableViewCell.lblClosed.isHidden = true
@@ -85,6 +86,7 @@ class DealerInfoViewController: UIViewController,UITableViewDelegate,UITableView
             tableViewCell.btnEdit.tag = indexPath.section
             tableViewCell.btnDelete.tag = indexPath.section
             tableViewCell.btnEdit.isHidden = true
+//            tableViewCell.btnEdit.
             tableViewCell.btnDelete.isHidden = true
             return tableViewCell
         }
@@ -98,6 +100,14 @@ class DealerInfoViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+//    {
+//        if indexPath.section == 0 {
+//            return 290.0
+//        } else {
+//            return 190.0
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
@@ -108,7 +118,15 @@ class DealerInfoViewController: UIViewController,UITableViewDelegate,UITableView
         return viewFooter
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
- 
+        var dictConsumer : NSDictionary = NSDictionary()
+        dictConsumer = (arrOffers.object(at: indexPath.row) as? NSDictionary)!
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "VehicleDetailViewController") as? VehicleDetailViewController
+        {
+            vc.dictVehicle = dictConsumer
+            vc.bDealerProfile = true
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
@@ -134,7 +152,6 @@ class DealerInfoViewController: UIViewController,UITableViewDelegate,UITableView
             
             "auth": ["id":AppUtilities.sharedInstance.getLoginUserId(),
                      "token": AppUtilities.sharedInstance.getLoginUserToken()]
-            
             ]  as NSDictionary
         
         debugPrint(dictionaryParams)
@@ -145,7 +162,6 @@ class DealerInfoViewController: UIViewController,UITableViewDelegate,UITableView
                 self.isAPICalled = false
                 if self.spinner != nil{
                     self.spinner.stopAnimating()
-                    
                 }
                 self.tblViewDealear.tableFooterView = nil
                 
@@ -153,7 +169,6 @@ class DealerInfoViewController: UIViewController,UITableViewDelegate,UITableView
                 {
                     if  (object.value(forKey: "success") as? Bool) != nil
                     {
-                        
                         let responseDic = object
                         debugPrint(responseDic)
                         if let status = responseDic.value(forKey: "success") as? Int

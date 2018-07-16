@@ -79,6 +79,7 @@ class VehicleDetailViewController: UIViewController,UITableViewDelegate,UITableV
     @IBOutlet weak var lblVehicleModel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    var bDealerProfile : Bool! = false
     var dictVehicle = NSDictionary()
     var dictCustInterest = NSDictionary()
     //MARK: - UIView Life Cycle -
@@ -106,12 +107,19 @@ class VehicleDetailViewController: UIViewController,UITableViewDelegate,UITableV
         self.view.endEditing(true)
         AppUtilities.sharedInstance.showLoader()
         
+        /*let val: String
+        if bDealerProfile {
+            val = dictVehicle.value(forKey: "id")! as! String
+        } else {
+            val = dictVehicle.value(forKey: "vid")! as! String
+        } // jex*/
         let dictionaryParams : NSDictionary = [
             "service": "GetCustomerInterestChat",
             "request" : [
                 "data": [
                     "cust_id": AppUtilities.sharedInstance.getLoginUserId(),
                     "vid": dictVehicle.value(forKey: "vid")!
+//                    "vid": val
                 ]
             ],
             
@@ -295,9 +303,16 @@ class VehicleDetailViewController: UIViewController,UITableViewDelegate,UITableV
         tableViewCell.lblAddress.text = ": " + "\(dictVehicle["address"] as? String ?? AppUtilities.sharedInstance.getLoginAddress())"
         tableViewCell.lblVehicleMileage.text = ": " + "\(dictVehicle["mileage"] as? String ?? "Not Available")"
         tableViewCell.lblYear.text = "\(dictVehicle["v_year"] as? String ?? "Not Available")"
-        tableViewCell.lblDealerName.text = ": " +  "\(dictVehicle["fullname"] as? String ?? "Not Available")"
-        tableViewCell.lblDealerEmail.text = ": " + "\(dictVehicle["email"] as? String ?? "Not Available")"
-        tableViewCell.lblDealerPhone.text = ": " + "\(dictVehicle["mobile"] as? String ?? "Not Available")"
+        if (bDealerProfile) {
+            tableViewCell.lblDealerName.text = ": " +  "\(((dictVehicle["dealersdata"]! as! NSArray).object(at: 0) as! NSDictionary).value(forKey: "fullname" as? String ?? "Not Available")!)"
+            tableViewCell.lblDealerPhone.text = ": " +  "\(((dictVehicle["dealersdata"]! as! NSArray).object(at: 0) as! NSDictionary).value(forKey: "mobile" as? String ?? "Not Available")!)"
+            tableViewCell.lblDealerEmail.text = ": " +  "\(((dictVehicle["dealersdata"]! as! NSArray).object(at: 0) as! NSDictionary).value(forKey: "email" as? String ?? "Not Available")!)"
+        } else {
+            tableViewCell.lblDealerName.text = ": " +  "\(dictVehicle["fullname"] as? String ?? "Not Available")"
+            tableViewCell.lblDealerPhone.text = ": " + "\(dictVehicle["mobile"] as? String ?? "Not Available")"
+            tableViewCell.lblDealerEmail.text = ": " + "\(dictVehicle["email"] as? String ?? "Not Available")"
+        }
+        
         tableViewCell.lblZipcode.text = ": " + "\(dictVehicle["zipcode"] as? String ?? AppUtilities.sharedInstance.getLoginPincode())"
         tableViewCell.lblDate.text = ": " + "\(dictVehicle["creation_datetime"] as? String ?? "Not Available")"
         tableViewCell.lblCity.text = ": " + "\(dictVehicle["city"] as? String ?? AppUtilities.sharedInstance.getLoginCity())"
