@@ -214,7 +214,7 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource {
         let dictChat = arrChatList.object(at: indexPath.row) as? NSDictionary
         
         let chatVc = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-        chatVc.dictChatUser = NSMutableDictionary(dictionary: dictChat!)
+        chatVc.dictChatUser = dictChat?.mutableCopy() as! NSMutableDictionary
         chatVc.isChatList = true
         self.navigationController?.pushViewController(chatVc, animated: true)
     }

@@ -223,6 +223,8 @@ class NotificationVC: UIViewController  ,UITableViewDelegate,UITableViewDataSour
 //            }
             if let vc : VehicleDetailsController = self.storyboard?.instantiateViewController(withIdentifier: "VehicleDetailsController") as! VehicleDetailsController {
 //            if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "VehicleDetailVC") as? VehicleDetailVC {
+                let data : NSMutableDictionary = dictConsumer.mutableCopy() as! NSMutableDictionary
+                data[""] =
                 vc.userDic = dictConsumer
                 
                 let custRequest = dictConsumer.value(forKey: "nt_type") as? String ?? ""
@@ -234,7 +236,6 @@ class NotificationVC: UIViewController  ,UITableViewDelegate,UITableViewDataSour
 //                    vc.isFrom = "delearNoti"
                 }
                 self.navigationController?.pushViewController(vc, animated: true)
-                
             }
         }
         

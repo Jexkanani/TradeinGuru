@@ -54,6 +54,8 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     
     @IBOutlet var searchBar_De: UISearchBar!
     @IBOutlet var searchBar_cu: UISearchBar!
+    @IBOutlet var searchBar_Year: UISearchBar!
+    @IBOutlet var searchBar_Model: UISearchBar!
     //Dealer
     
     @IBOutlet weak var viewDPostNew: UIView!
@@ -144,7 +146,7 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
         self.PageInd = 1
         if UserDefaults.standard.bool(forKey: "IsRefresh"){
             UserDefaults.standard.set(false, forKey: "IsRefresh")
-            if userType == "dealer"{
+            if userType == "dealer" {
                 self.arrVehicle.removeAllObjects()
                 getDealersVehicle()
             }
@@ -342,11 +344,11 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
              
              if let arrImages = dictConsumer.value(forKey: "vimages") as? NSArray
              {
-             if arrImages.count>0
-             {
-             let linkImage = arrImages[0] as? String ?? ""
-             tableViewCell.imageVehicle.sd_setImage(with: URL(string: linkImage), placeholderImage: UIImage(named: ""))
-             }
+                 if arrImages.count>0
+                 {
+                    let linkImage = arrImages[0] as? String ?? ""
+                    tableViewCell.imageVehicle.sd_setImage(with: URL(string: linkImage), placeholderImage: UIImage(named: ""))
+                 }
              }
              
              tableViewCell.btnMore.addTarget(self, action: #selector(self.btnMore(sender:)), for: .touchUpInside)
@@ -890,7 +892,6 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "NewDealerPostViewController") as? NewDealerPostViewController{
             self.navigationController?.pushViewController(vc, animated: true)
-            
         }
     }
     
@@ -908,7 +909,7 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
          //jignesh
          }*/
         
-        if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "Listings") as? Listings{
+        if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "Listings") as? Listings {
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -937,16 +938,24 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //        searchCustomer(searchtext: searchBar.text!)
+//        debugPrint("searchText: ", searchText)
         if userType == "dealer" {
-            searchCustomer(searchtext: searchBar_De.text!)
+            searchCustomer(searchtext: searchBar_De.text!, searchYeartext: "", searchModeltext: "")
+//            searchCustomer(searchtext: searchBar_De.text!)
         } else {
-            searchCustomer(searchtext: searchBar_cu.text!)
+//            if (searchBar == searchBar_cu) {
+//                searchCustomer(searchtext: searchBar_cu.text!)
+//            } else if (searchBar == searchBar_Year) {
+//                searchCustomer(searchtext: searchBar_Year.text!)
+//            } else if (searchBar == searchBar_Model) {
+                searchCustomer(searchtext: searchBar_cu.text!, searchYeartext: searchBar_Year.text!, searchModeltext: searchBar_Model.text!)
+//            }
         }
     }
     
-    func searchCustomer(searchtext: String)
+    func searchCustomer(searchtext: String, searchYeartext: String, searchModeltext: String)
     {
-        if (searchtext.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count) > 0
+        if ((searchtext.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count) > 0 || (searchYeartext.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count) > 0 || (searchModeltext.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count) > 0)
         {
             is_searching = true
             arrSearchedVehical.removeAllObjects()
@@ -955,14 +964,33 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
             {
                 let dictData = arrVehicle.object(at: index) as! NSDictionary
                 var v_make = String()
+                var v_year = String()
+                var v_model = String()
+                
                 if userType == "dealer" {
                     //                    v_make = dictData.value(forKey: "make") as? String
                     v_make = (dictData.value(forKey: "make") as? String)!
                 } else {
                     v_make = (dictData.value(forKey: "v_make") as? String)!
+                    v_year = (dictData.value(forKey: "v_year") as? String)!
+                    v_model = (dictData.value(forKey: "v_model") as? String)!
                 }
-                if v_make.lowercased().range(of: (searchtext.lowercased()), options:.regularExpression) != nil
-                {
+                
+                if (userType != "dealer" && v_make.lowercased().range(of: (searchtext.lowercased()), options:.regularExpression) != nil && v_year.lowercased().range(of: (searchYeartext.lowercased()), options:.regularExpression) != nil && v_model.lowercased().range(of: (searchModeltext.lowercased()), options:.regularExpression) != nil) {
+                    arrSearchedVehical.add(dictData)
+                } else if (userType != "dealer" && v_make.lowercased().range(of: (searchtext.lowercased()), options:.regularExpression) != nil && v_year.lowercased().range(of: (searchYeartext.lowercased()), options:.regularExpression) != nil && searchModeltext == "") {
+                    arrSearchedVehical.add(dictData)
+                } else if (userType != "dealer" && v_make.lowercased().range(of: (searchtext.lowercased()), options:.regularExpression) != nil && searchYeartext == "" && v_model.lowercased().range(of: (searchModeltext.lowercased()), options:.regularExpression) != nil) {
+                    arrSearchedVehical.add(dictData)
+                } else if (userType != "dealer" && searchtext == "" && v_year.lowercased().range(of: (searchYeartext.lowercased()), options:.regularExpression) != nil && v_model.lowercased().range(of: (searchModeltext.lowercased()), options:.regularExpression) != nil) {
+                    arrSearchedVehical.add(dictData)
+                } else if (userType != "dealer" && v_make.lowercased().range(of: (searchtext.lowercased()), options:.regularExpression) != nil && searchModeltext == "" && searchYeartext == "") {
+                    arrSearchedVehical.add(dictData)
+                } else if (userType != "dealer" && searchtext == "" && v_year.lowercased().range(of: (searchYeartext.lowercased()), options:.regularExpression) != nil && searchModeltext == "") {
+                    arrSearchedVehical.add(dictData)
+                } else if (userType != "dealer" && searchtext == "" && searchYeartext == "" && v_model.lowercased().range(of: (searchModeltext.lowercased()), options:.regularExpression) != nil) {
+                    arrSearchedVehical.add(dictData)
+                } else if (userType == "dealer" && v_make.lowercased().range(of: (searchtext.lowercased()), options:.regularExpression) != nil) {
                     arrSearchedVehical.add(dictData)
                 }
             }

@@ -71,7 +71,6 @@ class BuyerNotiDetailViewController: UIViewController,UITableViewDelegate,UITabl
             
             "auth": ["id":AppUtilities.sharedInstance.getLoginUserId(),
                      "token": AppUtilities.sharedInstance.getLoginUserToken()]
-            
             ]  as NSDictionary
         
         debugPrint(dictionaryParams)

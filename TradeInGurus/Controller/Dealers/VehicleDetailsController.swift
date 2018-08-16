@@ -194,12 +194,73 @@ class VehicleDetailsController: UIViewController,AACarouselDelegate {
     
     @IBAction func btnChatClk(_ sender: UIButton) {
         //        print(carouselView.GetCurrentIndex())
-        let chatVC = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-        chatVC.dictChatUser = NSMutableDictionary(dictionary: userDic)
-        if isNotific == true {
-            chatVC.isResquest = true
-        }
-        self.navigationController?.pushViewController(chatVC, animated: true)
+        
+        AppUtilities.sharedInstance.showLoader()
+//        let dic : NSDictionary = arrData.object(at: sender.tag) as! NSDictionary
+        let dictionaryParams : NSDictionary = [
+            "service": "SetCustomerInterestChat",
+            "request" : [
+                "data": [
+                    "cust_id": userDic["nt_cust_id"] as? String ,// dic.value(forKey: "user_id")!,
+                    "vid": userDic["vid"] as? String, // dic.value(forKey: "vid")!,
+                    "ischat": "1"
+                ]
+            ],
+            
+            "auth": ["id":AppUtilities.sharedInstance.getLoginUserId(),
+                     "token": AppUtilities.sharedInstance.getLoginUserToken()]
+            ]  as NSDictionary
+        
+        debugPrint(dictionaryParams)
+        
+        AppUtilities.sharedInstance.dataTaskLocal(method: "POST", params: dictionaryParams,strMethod: "", completion: { (success, object) in
+            DispatchQueue.main.async( execute: {
+                
+                AppUtilities.sharedInstance.hideLoader()
+                if let object = object as? NSDictionary
+                {
+                    if  (object.value(forKey: "success") as? Bool) != nil
+                    {
+                        let responseDic = object
+                        debugPrint(responseDic)
+                        if let status = responseDic.value(forKey: "success") as? Int
+                        {
+                            if(status == 1)
+                            {
+                                let chatVC = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+                                chatVC.isFromBuyerNoti = true
+                                chatVC.dictChatUser = NSMutableDictionary(dictionary: self.userDic)
+                                self.navigationController?.pushViewController(chatVC, animated: true)
+                            }
+                            else {
+                                if let errorMsg = responseDic.value(forKey: "msg") as? String {
+                                    AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
+                                }
+                            }
+                        }
+                        else
+                        {
+                            
+                        }
+                    }
+                    else
+                    {
+                        AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "\(object.value(forKey: "message") as? String ?? "" )" as NSString)
+                    }
+                }
+                else
+                {
+                    AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: (NSLocalizedString("Server is temporary down !! Plz try after sometime", comment: "Server is temporary down !! Plz try after sometime") as NSString))
+                }
+            })
+        })
+        
+//        let chatVC = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
+//        chatVC.dictChatUser = NSMutableDictionary(dictionary: userDic)
+//        if isNotific == true {
+//            chatVC.isResquest = true
+//        }
+//        self.navigationController?.pushViewController(chatVC, animated: true)
     }
 }
 

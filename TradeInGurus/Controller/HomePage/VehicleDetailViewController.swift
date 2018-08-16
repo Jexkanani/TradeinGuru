@@ -18,9 +18,12 @@ class VehicleDetailTableViewCell: UITableViewCell, AACarouselDelegate {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.kf.setImage(with: URL(string: url)!, placeholder: UIImage.init(named: "default_tig_pic"), options: [.transition(.fade(1))], progressBlock: nil, completionHandler: { (downloadImage, error, cacheType, url) in
-            self.carouselView1.images[index] = downloadImage!
+            if (downloadImage != nil) {
+                self.carouselView1.images[index] = downloadImage!
+            }
         })
     }
+    
     //optional method (show first image faster during downloading of all images)
     func callBackFirstDisplayView(_ imageView: UIImageView, _ url: [String], _ index: Int) {
         imageView.contentMode = .scaleAspectFit

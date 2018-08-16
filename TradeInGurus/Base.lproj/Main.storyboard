@@ -8615,7 +8615,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trade In Gurus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Cw-Io-s6C">
-                                        <rect key="frame" x="62" y="25" width="114" height="20"/>
+                                        <rect key="frame" x="62" y="25" width="111.5" height="20"/>
                                         <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -8656,7 +8656,7 @@
                                                             <rect key="frame" x="46" y="16" width="49" height="49"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post New" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Noi-cM-d8T">
-                                                            <rect key="frame" x="40" y="76" width="60.5" height="16"/>
+                                                            <rect key="frame" x="40" y="76" width="61" height="16"/>
                                                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -9143,7 +9143,7 @@
                                         <rect key="frame" x="0.0" y="8" width="290" height="393"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <view key="tableHeaderView" contentMode="scaleToFill" id="YSn-HQ-ffw">
-                                            <rect key="frame" x="0.0" y="0.0" width="290" height="230"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="290" height="315"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n5J-2y-107">
@@ -9336,33 +9336,79 @@
                                                         <outlet property="delegate" destination="NrD-YY-a3X" id="Z0p-wP-6pn"/>
                                                     </connections>
                                                 </searchBar>
+                                                <searchBar contentMode="redraw" placeholder="Year" backgroundImage="nil" translatesAutoresizingMaskIntoConstraints="NO" id="rqa-e7-u2B">
+                                                    <rect key="frame" x="0.0" y="220" width="290" height="44"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="pYZ-Ru-ZOQ"/>
+                                                        <constraint firstAttribute="height" constant="44" id="ptv-kj-3xb"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <integer key="value" value="0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="NrD-YY-a3X" id="gdj-CI-Iit"/>
+                                                    </connections>
+                                                </searchBar>
+                                                <searchBar contentMode="redraw" placeholder="Model" backgroundImage="nil" translatesAutoresizingMaskIntoConstraints="NO" id="k6y-Xp-4hL">
+                                                    <rect key="frame" x="0.0" y="261" width="290" height="44"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="Bl9-gP-1wW"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="W3N-M1-EMW"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <integer key="value" value="0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="NrD-YY-a3X" id="ouN-S1-AXd"/>
+                                                    </connections>
+                                                </searchBar>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="n5J-2y-107" firstAttribute="leading" secondItem="YSn-HQ-ffw" secondAttribute="leading" constant="38" id="2CF-VR-uhF"/>
+                                                <constraint firstItem="rqa-e7-u2B" firstAttribute="top" secondItem="RlZ-3B-XAO" secondAttribute="bottom" constant="50" id="4gf-PD-hew"/>
                                                 <constraint firstItem="X4K-Cc-MnV" firstAttribute="leading" secondItem="RmV-Uk-THE" secondAttribute="trailing" constant="8" id="9Cq-8g-Vg3"/>
                                                 <constraint firstAttribute="trailing" secondItem="X4K-Cc-MnV" secondAttribute="trailing" constant="38" id="9bI-c6-ior"/>
                                                 <constraint firstItem="n5J-2y-107" firstAttribute="top" secondItem="YSn-HQ-ffw" secondAttribute="top" id="ANu-Yd-j22"/>
                                                 <constraint firstItem="e4K-x9-E5f" firstAttribute="top" secondItem="YSn-HQ-ffw" secondAttribute="top" id="GZh-4o-Wka"/>
                                                 <constraint firstItem="X4K-Cc-MnV" firstAttribute="leading" secondItem="RmV-Uk-THE" secondAttribute="trailing" constant="8" id="H2s-hg-Ejz"/>
                                                 <constraint firstAttribute="trailing" secondItem="sba-e0-k3t" secondAttribute="trailing" id="Kz8-we-LfL"/>
+                                                <constraint firstAttribute="trailing" secondItem="rqa-e7-u2B" secondAttribute="trailing" id="NMG-so-eNj"/>
+                                                <constraint firstItem="k6y-Xp-4hL" firstAttribute="top" secondItem="sba-e0-k3t" secondAttribute="bottom" constant="38" id="Uc8-0n-fKl"/>
                                                 <constraint firstItem="X4K-Cc-MnV" firstAttribute="width" secondItem="RmV-Uk-THE" secondAttribute="width" id="VF4-xv-lgm"/>
                                                 <constraint firstItem="RlZ-3B-XAO" firstAttribute="leading" secondItem="YSn-HQ-ffw" secondAttribute="leading" id="Wiw-DP-3kj"/>
+                                                <constraint firstAttribute="bottom" secondItem="rqa-e7-u2B" secondAttribute="bottom" constant="51" id="YMX-zb-Njz"/>
+                                                <constraint firstAttribute="trailing" secondItem="k6y-Xp-4hL" secondAttribute="trailing" id="Ya7-YU-Qun"/>
                                                 <constraint firstItem="sba-e0-k3t" firstAttribute="leading" secondItem="YSn-HQ-ffw" secondAttribute="leading" id="euc-L7-Vfo"/>
-                                                <constraint firstAttribute="bottom" secondItem="sba-e0-k3t" secondAttribute="bottom" constant="7" id="fwy-Us-fUg"/>
                                                 <constraint firstItem="e4K-x9-E5f" firstAttribute="width" secondItem="n5J-2y-107" secondAttribute="width" id="iH9-5h-jxK"/>
-                                                <constraint firstAttribute="bottom" secondItem="RmV-Uk-THE" secondAttribute="bottom" constant="72" id="lIx-Rj-O4U"/>
+                                                <constraint firstAttribute="bottom" secondItem="RmV-Uk-THE" secondAttribute="bottom" constant="157" id="lIx-Rj-O4U"/>
                                                 <constraint firstAttribute="trailing" secondItem="RlZ-3B-XAO" secondAttribute="trailing" id="nsO-2N-89M"/>
-                                                <constraint firstAttribute="bottom" secondItem="X4K-Cc-MnV" secondAttribute="bottom" constant="72" id="oof-9W-Kt7"/>
+                                                <constraint firstAttribute="bottom" secondItem="X4K-Cc-MnV" secondAttribute="bottom" constant="157" id="oof-9W-Kt7"/>
+                                                <constraint firstAttribute="bottom" secondItem="k6y-Xp-4hL" secondAttribute="bottom" constant="10" id="r7D-9D-rhd"/>
+                                                <constraint firstItem="k6y-Xp-4hL" firstAttribute="top" secondItem="sba-e0-k3t" secondAttribute="bottom" constant="38" id="sGq-nv-xBd"/>
+                                                <constraint firstItem="k6y-Xp-4hL" firstAttribute="leading" secondItem="YSn-HQ-ffw" secondAttribute="leading" id="ufv-jF-a6f"/>
                                                 <constraint firstItem="e4K-x9-E5f" firstAttribute="leading" secondItem="n5J-2y-107" secondAttribute="trailing" constant="8" id="uwA-Gx-2mX"/>
                                                 <constraint firstAttribute="trailing" secondItem="e4K-x9-E5f" secondAttribute="trailing" constant="38" id="vof-VA-MQA"/>
                                                 <constraint firstItem="sba-e0-k3t" firstAttribute="top" secondItem="RlZ-3B-XAO" secondAttribute="bottom" constant="9" id="vrI-pN-sBX"/>
                                                 <constraint firstItem="RmV-Uk-THE" firstAttribute="leading" secondItem="YSn-HQ-ffw" secondAttribute="leading" constant="38" id="wNW-UT-tuB"/>
+                                                <constraint firstItem="rqa-e7-u2B" firstAttribute="leading" secondItem="YSn-HQ-ffw" secondAttribute="leading" id="yZy-Zc-02f"/>
                                             </constraints>
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellConsumer" rowHeight="130" id="Msv-ak-cQd" customClass="CustomerTableViewCell" customModule="TradeInGurus" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="258" width="290" height="130"/>
+                                                <rect key="frame" x="0.0" y="343" width="290" height="130"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Msv-ak-cQd" id="W5P-Lf-8v0">
                                                     <rect key="frame" x="0.0" y="0.0" width="290" height="130"/>
@@ -9590,7 +9636,7 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellDealer" rowHeight="120" id="PwV-xG-ifs" customClass="DealerTableViewCell" customModule="TradeInGurus" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="388" width="290" height="120"/>
+                                                <rect key="frame" x="0.0" y="473" width="290" height="120"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PwV-xG-ifs" id="ncR-9R-JQH">
                                                     <rect key="frame" x="0.0" y="0.0" width="290" height="120"/>
@@ -9724,7 +9770,7 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecTableViewCell" id="dUb-i0-nme" customClass="RecTableViewCell" customModule="TradeInGurus" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="508" width="290" height="103"/>
+                                                <rect key="frame" x="0.0" y="593" width="290" height="103"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dUb-i0-nme" id="Kfo-Gh-Ndt">
                                                     <rect key="frame" x="0.0" y="0.0" width="290" height="103"/>
@@ -9732,7 +9778,7 @@
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Req1cell" rowHeight="146" id="MVC-3r-ccg" customClass="Req1cell" customModule="TradeInGurus" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="611" width="290" height="146"/>
+                                                <rect key="frame" x="0.0" y="696" width="290" height="146"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MVC-3r-ccg" id="Bq0-ai-y6r">
                                                     <rect key="frame" x="0.0" y="0.0" width="290" height="146"/>
@@ -9971,6 +10017,8 @@
                     <connections>
                         <outlet property="lblBuyerNotification" destination="YpC-MO-eDA" id="lS3-eg-oCj"/>
                         <outlet property="searchBar_De" destination="tlz-2X-SG1" id="lmE-RI-wgF"/>
+                        <outlet property="searchBar_Model" destination="k6y-Xp-4hL" id="zIE-8d-tDy"/>
+                        <outlet property="searchBar_Year" destination="rqa-e7-u2B" id="voB-av-SrV"/>
                         <outlet property="searchBar_cu" destination="sba-e0-k3t" id="N7Z-cf-UJi"/>
                         <outlet property="tblViewConsumer" destination="2KF-M3-AAS" id="Zwy-8c-qfA"/>
                         <outlet property="tblViewDealear" destination="cnM-A1-daU" id="CgV-Sg-8pn"/>

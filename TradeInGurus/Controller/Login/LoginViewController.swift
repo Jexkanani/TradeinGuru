@@ -228,7 +228,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificat
             ]
             ]  as NSDictionary
         
-        
         print(dictionaryParams)
         AppUtilities.sharedInstance.dataTask(method: "POST", params: dictionaryParams,strMethod: "", completion: { (success, object) in
             DispatchQueue.main.async( execute: {
@@ -272,7 +271,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificat
                 {
                     AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: (NSLocalizedString("Server is temporary down !! Plz try after sometime", comment: "Server is temporary down !! Plz try after sometime") as NSString))
                 }
-                
             })
         })
     }

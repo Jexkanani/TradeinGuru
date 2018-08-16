@@ -50,7 +50,6 @@ class Listings: UIViewController,SWRevealViewControllerDelegate,UITableViewDeleg
         
         if isBackground == false {
             AppApi.sharedInstance.notifiCount()
-            
         }
         
         let dict = AppUtilities.sharedInstance.getLoginDict()
@@ -503,7 +502,7 @@ class Listings: UIViewController,SWRevealViewControllerDelegate,UITableViewDeleg
                             }
                             else
                             {
-                                if let errorMsg = responseDic.value(forKey: "msg") as? String{
+                                if let errorMsg = responseDic.value(forKey: "msg") as? String {
                                     AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
                                 }
                             }
@@ -518,7 +517,6 @@ class Listings: UIViewController,SWRevealViewControllerDelegate,UITableViewDeleg
                 {
                     AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: (NSLocalizedString("Server is temporary down !! Plz try after sometime", comment: "Server is temporary down !! Plz try after sometime") as NSString))
                 }
-                
             })
         })
     }

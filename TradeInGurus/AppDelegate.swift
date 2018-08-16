@@ -180,7 +180,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     if  txtMessage  == "not send" {
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newTapMessage"), object: nil, userInfo: notificInfo as? [AnyHashable : Any])
                     }
-                    
                 }
             } else if type == "customer_request" {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "customer_request"), object: nil, userInfo: notificInfo as? [AnyHashable : Any])
@@ -198,7 +197,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     txtMessage = self.txtNotifiMsg
                     self.txtNotifiMsg = ""
                 }
-                
                 self.sendMessage(txtComment: txtMessage, fromID: fromID)
             }
         }
