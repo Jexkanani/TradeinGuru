@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.2.6</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -42,11 +42,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>This app requires access to the camera.</string>
+	<string>App would like to access your photo camera for your profile photo or vehicle photo upload. Your photos wont be shared without your permission.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location will be used to post to the server as the user profile location and will be used to show on map and in your profile you can update from update profile.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app requires access to the photo library.</string>
+	<string>App would like to access your photo library for your profile photo or vehicle photo upload. Your photos wont be shared without your permission.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Ubuntu-B.ttf</string>
