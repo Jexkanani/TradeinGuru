@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
-class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSelectorDelegate
-{
+class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSelectorDelegate, registerProtocolDelegate {
 
     @IBOutlet var btnDealer : UIButton!
     @IBOutlet var btnCustomer : UIButton!
     @IBOutlet var txtUserName : ACFloatingTextfield!
-    @IBOutlet var txtFullName : ACFloatingTextfield!
+    @IBOutlet var txtFullName :ACFloatingTextfield!
     @IBOutlet var txtPassword : ACFloatingTextfield!
     @IBOutlet var txtEmail : ACFloatingTextfield!
     @IBOutlet var txtPhoneNumber : ACFloatingTextfield!
@@ -26,23 +27,22 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSel
     @IBOutlet var txtCounty : ACFloatingTextfield!
     var ArrCounty = NSArray()
     var StrStateID = String()
+    var logintype  = "email"
+    let dicFb : NSMutableDictionary = NSMutableDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         btnDealer.isSelected = true
         btnCustomer.isSelected = false
-        self.GetStates()
+        AppUtilities.sharedInstance.AppEvents(view: self)
+        
+//        self.GetStates()
 //        txtFullName.text = "Son Doe"
 //        txtPhoneNumber.text = "1235345345"
 //        txtEmail.text = "son@yopmail.com"
 //        txtPassword.text = "123456"
 //        txtUserName.text = "SONDOE"
         // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK: - All Button Action - 
@@ -57,7 +57,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSel
     }
 
     @IBAction func btnSignUpPressed(_ sender: Any) {
-        
         if isCredentialValid(){
             signUp()
         }
@@ -69,6 +68,72 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSel
         self.navigationController?.popViewController(animated: true)
     }
     
+    //MARK: - Facebook methods
+    @IBAction func btnSignUpFb(_ sender: Any) {
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logIn(withReadPermissions: ["email"], handler: { (result, error) -> Void in
+            
+            print("\n\n result: \(result)")
+            print("\n\n Error: \(error)")
+            
+            if (error == nil)
+            {
+                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+                
+                if(fbloginresult.isCancelled) {
+                    self.logintype = "email"
+                    // Show Cancel alert
+                } else {
+                    //                    if(fbloginresult.grantedPermissions.contains("email")) {
+                    //                        dicFb.setValue(<#T##value: Any?##Any?#>, forKey: "email")
+                    //                    }
+                    self.logintype = "fb"
+                    self.returnUserData()
+                    // fbLoginManager.logOut()
+                }// else {
+                // ask for email and then allow to login
+                //}
+            }
+        })
+    }
+    
+    func returnUserData()
+    {
+        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name,picture,gender"])
+        graphRequest.start(completionHandler: { (connection, result, error) -> Void in
+            if ((error) != nil)
+            {
+                self.logintype = "email"
+                // Process error
+                print("\n\n Error: \(error)")
+            }
+            else
+            {
+                let resultDic = result as! NSDictionary
+                print("\n\n  fetched user: \(result!)")
+                
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "FbDataPopUp") as? FbDataPopUp
+                vc?.view.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.size.width-30, height: 220.0)
+                
+                if (resultDic.value(forKey:"name") != nil)
+                {
+                    let userName = resultDic.value(forKey:"name")! as! String as NSString?
+                    self.dicFb.setValue(userName, forKey: "name")
+                }
+                self.dicFb.setValue(((resultDic.value(forKey:"picture") as! NSDictionary).value(forKey: "data") as! NSDictionary).value(forKey: "url") as! String, forKey: "fbid")
+                if (resultDic.value(forKey:"email") != nil)
+                {
+                    let userEmail = resultDic.value(forKey:"email")! as! String as NSString?
+                    self.dicFb.setValue(userEmail, forKey: "email")
+                    vc?.email = userEmail! as String
+                }
+                self.dicFb.setValue(resultDic.value(forKey:"id"), forKey: "fbid")
+                vc?.dic = self.dicFb
+                vc?.delegate = self
+                self.presentPopupViewController(vc, animationType: MJPopupViewAnimationSlideBottomTop)
+            }
+        })
+    }
     
     //MARK: - Textfield delegate methods
     func textFieldDidBeginEditing(_ textField: UITextField) {    //delegate method
@@ -83,6 +148,23 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSel
         textField.resignFirstResponder()
         
         return true
+    }
+    
+    // MARK: - Register Delegate Methods
+    func clkDone(Email : String, Zipcode : String) {
+        debugPrint(Email)
+        debugPrint(Zipcode)
+        if (Email != "") {
+            self.dicFb.setValue(Email , forKey: "email")
+        }
+
+        self.dicFb.setValue(Zipcode , forKey: "zipcode")
+        self.signUp()
+        self.dismissPopupViewControllerWithanimationType(MJPopupViewAnimationSlideTopBottom)
+    }
+    
+    func clkClose() {
+        self.dismissPopupViewControllerWithanimationType(MJPopupViewAnimationSlideTopBottom)
     }
     
     //MARK: - Validation -
@@ -176,7 +258,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSel
                 {
                     if  (object.value(forKey: "success") as? Bool) != nil
                     {
-                        
                         let responseDic = object
                         debugPrint(responseDic)
                         if let status = responseDic.value(forKey: "success") as? Int
@@ -186,9 +267,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSel
                                 debugPrint(responseDic)
                                 self.ArrCounty = responseDic["data"] as! NSArray
                                 print(self.ArrCounty)
-                                
                             }
-                            else{
+                            else {
                                 if let errorMsg = responseDic.value(forKey: "message") as? String{
                                     AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
                                 }
@@ -213,6 +293,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSel
             })
         })
     }
+    
     func signUp()
     {
         self.view.endEditing(true)
@@ -229,14 +310,34 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSel
             type = "customer"
         }
         */
+        var email = String()
+        var fbid = String()
+//        var picture = String()
+        var zipcode = String()
+        var name = String()
+        if (logintype == "email") {
+            email = txtEmail.text!.trim()
+            fbid = ""
+//            picture = ""
+            zipcode = txtZipcode.text!.trim()
+            name = txtFullName.text!.trim()
+        } else {
+            if (dicFb["email"] != nil) {
+                email = dicFb.value(forKey: "email") as! String
+            }
+            zipcode = dicFb.value(forKey: "zipcode") as! String
+            fbid = dicFb.value(forKey: "fbid") as! String
+            name = dicFb.value(forKey: "name") as! String
+//            picture = dicFb.value(forKey: "picture") as! String
+        }
+        
         let dictionaryParams : NSDictionary = [
             "service": "signup",
-            
             "request" : [
                 "data": ["username":txtUserName.text!.trim(),
                          "password":txtPassword.text!.trim(),
-                         "fullname":txtFullName.text!.trim(),
-                         "email":txtEmail.text!.trim(),
+                         "fullname":name,
+                         "email":email,
                          "mobile":txtPhoneNumber.text!.trim(),
                          "stateid" : StrStateID,
                          "country" : txtCounty.text!.trim(),
@@ -247,9 +348,12 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, SBPickerSel
                          "lng": GetCurrentLocation.sharedObject.currentGeoLocation?.coordinate.longitude ?? 00,
                          "address" : txtAddress.text!.trim(),
                          "city" : txtCity.text!.trim(),
-                         "pincode" : txtZipcode.text!.trim()],
+                         "pincode" : zipcode,
+                         "fbid" : fbid,
+                         //"url" : picture,
+                         "logintype":logintype]
             ]
-    ] as NSDictionary
+            ] as NSDictionary
         debugPrint(dictionaryParams)
         
         AppUtilities.sharedInstance.dataTaskLocal(method: "POST", params: dictionaryParams,strMethod: "", completion: { (success, object) in

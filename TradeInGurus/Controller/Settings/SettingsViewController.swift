@@ -24,6 +24,7 @@ class SettingsViewController: UIViewController,UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         sendGetSettingReq()
+        AppUtilities.sharedInstance.AppEvents(view: self)
     }
     
     func sendGetSettingReq()

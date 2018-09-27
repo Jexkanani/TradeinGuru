@@ -37,6 +37,7 @@ class DealerInfoViewController: UIViewController,UITableViewDelegate,UITableView
         tblViewDealear.rowHeight = UITableViewAutomaticDimension
         tblViewDealear.estimatedRowHeight = 290
         getDealerOffer()
+        AppUtilities.sharedInstance.AppEvents(view: self)
     }
 
     //MARK: - All UIButton actions -
@@ -74,10 +75,22 @@ class DealerInfoViewController: UIViewController,UITableViewDelegate,UITableView
             tableViewCell.lblOfferMobile.text =  "Make : " + "\(dictDealer?["v_model"] as? String ?? "")" //make
             tableViewCell.lblOfferAddress.text = "Address : " + "\(dictDealer?["address"] as? String ?? "")"
             tableViewCell.lblOfferdatetime.text = "Date : " + "\(dictDealer?["creation_datetime"] as? String ?? "")"
-            tableViewCell.lblOfferNumber.text = " • "
+//            tableViewCell.lblOfferNumber.text = " • "
+            
+            if let arrImages = dictDealer?["vimages"] as? NSArray
+            {
+                if arrImages.count>0 {
+                    let linkImage = arrImages[0] as? String ?? ""
+                    tableViewCell.img.sd_setImage(with: URL(string: linkImage), placeholderImage: UIImage(named: "default_tig_pic"))
+                } else {
+                    let linkImage = ""
+                    tableViewCell.img.sd_setImage(with: URL(string: linkImage), placeholderImage: UIImage(named: "default_tig_pic"))
+                }
+            }
+            
             tableViewCell.lblClosed.isHidden = true
             tableViewCell.lblOpen.isHidden = true
-            if dictDealer?.value(forKey: "is_open") as? String == "1"{
+            if dictDealer?.value(forKey: "is_open") as? String == "1" {
                 tableViewCell.lblClosed.isHidden = false
             }
             else{

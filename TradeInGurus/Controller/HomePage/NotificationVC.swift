@@ -27,6 +27,7 @@ class NotificationVC: UIViewController  ,UITableViewDelegate,UITableViewDataSour
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        AppUtilities.sharedInstance.AppEvents(view: self)
         getMyNotifications()
         tblViewNotifications.rowHeight = UITableViewAutomaticDimension
         tblViewNotifications.estimatedRowHeight = 60
@@ -201,10 +202,8 @@ class NotificationVC: UIViewController  ,UITableViewDelegate,UITableViewDataSour
                 if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "VehicleDetailViewController") as? VehicleDetailViewController {
                     vc.dictVehicle = dictConsumer
                     self.navigationController?.pushViewController(vc, animated: true)
-                    
                 }
             }
-            
         }
         else {
 //            let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -224,8 +223,7 @@ class NotificationVC: UIViewController  ,UITableViewDelegate,UITableViewDataSour
             if let vc : VehicleDetailsController = self.storyboard?.instantiateViewController(withIdentifier: "VehicleDetailsController") as! VehicleDetailsController {
 //            if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "VehicleDetailVC") as? VehicleDetailVC {
                 let data : NSMutableDictionary = dictConsumer.mutableCopy() as! NSMutableDictionary
-                data[""] =
-                vc.userDic = dictConsumer
+                data[""] = vc.userDic = dictConsumer
                 
                 let custRequest = dictConsumer.value(forKey: "nt_type") as? String ?? ""
                 if custRequest == "customer_request"  {
@@ -252,7 +250,6 @@ class NotificationVC: UIViewController  ,UITableViewDelegate,UITableViewDataSour
                 spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
                 tableView.tableFooterView = spinner
                 tableView.tableFooterView?.isHidden = false
-                
                 
                 PageInd = PageInd + 1
                 getMyNotifications()

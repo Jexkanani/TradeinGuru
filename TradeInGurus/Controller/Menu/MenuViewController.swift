@@ -21,7 +21,7 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
+        AppUtilities.sharedInstance.AppEvents(view: self)
         imageProfilePic.layer.cornerRadius = 22.5
         imageProfilePic.clipsToBounds = true
         lblNotificCount.isHidden = true
@@ -94,7 +94,6 @@ class MenuViewController: UIViewController {
         let alert = UIAlertController(title: "Logout", message: "Are you sure that you want to logout?", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction!) in
             self.logout()
-            
         }))
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.destructive, handler: nil))
@@ -102,14 +101,11 @@ class MenuViewController: UIViewController {
     }
     
     //MARK:- API Methods -
-    
-    
     func logout()
     {
         self.view.endEditing(true)
         
         AppUtilities.sharedInstance.showLoader()
-        //        var deviceToken = "5VM99AJr13f-2FbdGgiBJbYAcUgYGF8qy"
         var deviceToken = "dd8714bdbcc11076888df23d910c5bbf158cdd09e7c81ffd43dc11804a96bfcb"
         if let deviceTc = UserDefaults.standard.value(forKey: "DeviceToken") as? String{
             deviceToken = deviceTc
@@ -122,7 +118,6 @@ class MenuViewController: UIViewController {
             
             "auth": ["id":AppUtilities.sharedInstance.getLoginUserId(),
                      "token": AppUtilities.sharedInstance.getLoginUserToken()]
-            
             ]  as NSDictionary
         
         AppUtilities.sharedInstance.dataTaskLocal(method: "POST", params: dictionaryParams,strMethod: "", completion: { (success, object) in
@@ -146,7 +141,7 @@ class MenuViewController: UIViewController {
                                 UserDefaults.standard.synchronize()
                                 self.navigationController?.popToRootViewController(animated: true)
                             }
-                            else{
+                            else {
                                 if let errorMsg = responseDic.value(forKey: "message") as? String{
                                     AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
                                 }
@@ -172,25 +167,8 @@ class MenuViewController: UIViewController {
         })
     }
     
-    
-    //MARK: - Memory Life Cycle -
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 

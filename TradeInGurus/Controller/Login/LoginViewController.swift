@@ -8,10 +8,10 @@
 
 import UIKit
 import UserNotifications
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 extension String {
-    
-    
     func checkTextSufficientComplexity() -> Bool{
         
         let capitalLetterRegEx  = ".*[A-Z]+.*"
@@ -29,9 +29,22 @@ extension String {
         
         return capitalresult && numberresult && specialresult && self.characters.count >= 8
     }
-    
-    
 }
+
+//struct MyProfileRequest: GraphRequestProtocol {
+//    struct Response: GraphResponseProtocol {
+//        init(rawResponse: Any?) {
+//            // Decode JSON from rawResponse into other properties here.
+//        }
+//    }
+//
+//    var graphPath = "/me"
+//    var parameters: [String : Any]? = ["fields": "id, email"]
+//    var accessToken = AccessToken.current
+//    var httpMethod: GraphRequestHTTPMethod = .GET
+//    var apiVersion: GraphAPIVersion = .defaultVersion
+//}
+
 
 
 class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificationCenterDelegate
@@ -39,10 +52,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificat
     //MARK: - All Outlets -
     @IBOutlet var txtUserName : ACFloatingTextfield!
     @IBOutlet var txtPassword : ACFloatingTextfield!
+    @IBOutlet var btnLogin : UIButton!
     @IBOutlet var btnDealer : UIButton!
     @IBOutlet var btnCustomer : UIButton!
     
     var fromUserId  = ""
+    var logintype  = "email"
+    let dicFb : NSMutableDictionary = NSMutableDictionary()
     
     override func viewDidLoad()
     {
@@ -84,8 +100,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificat
     }
     
     //MARK: - Custome Notification -
-    
-    
     func viewAction(){
         if #available(iOS 10.0, *) {
             let commentAction = UNTextInputNotificationAction(identifier: "comment", title: "Add Comment", options: [], textInputButtonTitle: "Send", textInputPlaceholder: "Add Comment Here")
@@ -99,8 +113,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificat
             addNotification(content: content, trigger: nil, indentifier: "Alarm")
             // Fallback on earlier versions
         }
-        
-        
     }
     
     @available(iOS 10.0, *)
@@ -153,12 +165,74 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificat
     }
     
     @IBAction func btnLoginPressed(_ sender: Any) {
-        
-        
         if isCredentialValid(){
             login()
         }
-   }
+    }
+    
+    @IBAction func btnLoginFb(_ sender: Any) {
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logIn(withReadPermissions: ["email"], handler: { (result, error) -> Void in
+            
+            print("\n\n result: \(result)")
+            print("\n\n Error: \(error)")
+            
+            if (error == nil)
+            {
+                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+                
+                if(fbloginresult.isCancelled) {
+                    self.logintype = "email"
+                    // Show Cancel alert
+                } else {
+//                    if(fbloginresult.grantedPermissions.contains("email")) {
+//                        dicFb.setValue(<#T##value: Any?##Any?#>, forKey: "email")
+//                    }
+                    self.logintype = "fb"
+                    self.returnUserData()
+                    // fbLoginManager.logOut()
+                }// else {
+                    // ask for email and then allow to login
+                //}
+            }
+        })
+    }
+    
+    func returnUserData()
+    {
+        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name,picture,gender"])
+        graphRequest.start(completionHandler: { (connection, result, error) -> Void in
+            if ((error) != nil)
+            {
+                self.logintype = "email"
+                // Process error
+                print("\n\n Error: \(error)")
+            }
+            else
+            {
+                let resultDic = result as! NSDictionary
+                print("\n\n  fetched user: \(result!)")
+                
+//                if (resultDic.value(forKey:"name") != nil)
+//                {
+//                    let userName = resultDic.value(forKey:"name")! as! String as NSString?
+//                    print("\n User Name is: \(userName)")
+//                    dicFb.setValue(userEmail, forKey: "email")
+//                }
+//
+                self.dicFb.setValue(((resultDic.value(forKey:"picture") as! NSDictionary ).value(forKey: "data") as! NSDictionary).value(forKey: "url") as! String, forKey: "fbid")
+                
+                if (resultDic.value(forKey:"email") != nil)
+                {
+                    let userEmail = resultDic.value(forKey:"email")! as! String as NSString?
+                    print("\n User Email is: \(userEmail)")
+                    self.dicFb.setValue(userEmail, forKey: "email")
+                }
+                self.dicFb.setValue(resultDic.value(forKey:"id"), forKey: "fbid")
+                self.login()
+            }
+        })
+    }
     
     @IBAction func btnSignUpClk(_ sender: UIButton)
     {
@@ -207,8 +281,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificat
         AppUtilities.sharedInstance.showLoader()
 //        var deviceToken = "5VM99AJr13f-2FbdGgiBJbYAcUgYGF8qy"
         var deviceToken = "dd8714bdbcc11076888df23d910c5bbf158cdd09e7c81ffd43dc11804a96bfcb"
-        if let deviceTc = UserDefaults.standard.value(forKey: "DeviceToken") as? String{
+        if let deviceTc = UserDefaults.standard.value(forKey: "DeviceToken") as? String {
             deviceToken = deviceTc
+        }
+        
+        var email = String()
+        var fbid = String()
+        var picture = String()
+        if (logintype == "email") {
+            email = txtUserName.text!.trim()
+            fbid = ""
+            picture = ""
+        } else {
+            if (dicFb["email"] != nil) {
+                email = dicFb.value(forKey: "email") as! String
+            }
+            fbid = dicFb.value(forKey: "fbid") as! String
+//            picture = dicFb.value(forKey: "picture") as! String
         }
         
         var type = "dealer"
@@ -219,13 +308,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificat
         let dictionaryParams : NSDictionary = [
             "service": "login",
             "request" : [
-//                "data": ["username":txtUserName.text!.trim(),
-                "data": ["email":txtUserName.text!.trim(),
+                "data": ["email":email,
                          "password":txtPassword.text!.trim(),
                          "type":type,
                          "platform":"ios",
-                         "device_id": deviceToken]
-            ]
+                         "device_id": deviceToken,
+                         "logintype":logintype,
+                         "fbid":fbid]]//,
+                         //"picture" : picture]]
             ]  as NSDictionary
         
         print(dictionaryParams)
@@ -238,6 +328,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificat
                     {
                         let responseDic = object
                         print(responseDic)
+                        AppUtilities.sharedInstance.AppEvents(view: self)
+//                        FBSDKAppEvents.logEvent("Logged_In")
+//                        [FBSDKAppEvents
+//                            logEvent:@"Applogin"];
+//                        
+//                        let event = AppEvent(name: "Logged_In")
+//                        AppEventsLogger.log(event)
+                        
                         if let status = responseDic.value(forKey: "success") as? Int
                         {
                             if(status == 1)
@@ -250,8 +348,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificat
                                 UserDefaults.standard.synchronize()
                                 self.performSegue(withIdentifier: "Home", sender: self)
                             }
-                            else{
-                                if let errorMsg = responseDic.value(forKey: "message") as? String{
+                            else {
+                                if let errorMsg = responseDic.value(forKey: "message") as? String {
                                     AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
                                 }
                             }
@@ -264,7 +362,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UNUserNotificat
                     else
                     {
                         AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "\(object.value(forKey: "message") as? String ?? "" )" as NSString)
-                        
                     }
                 }
                 else

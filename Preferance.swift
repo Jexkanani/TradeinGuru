@@ -57,6 +57,7 @@ class Preferance: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     //MARK: - Load -
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppUtilities.sharedInstance.AppEvents(view: self)
         //        txtView.text = strPreferance
         tblViewOffer.tableHeaderView = nil
         if let object = UserDefaults.standard.value(forKey: "Pref") as? NSDictionary {

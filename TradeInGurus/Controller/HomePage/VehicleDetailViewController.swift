@@ -92,6 +92,7 @@ class VehicleDetailViewController: UIViewController,UITableViewDelegate,UITableV
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 630
         debugPrint(dictVehicle)
+        AppUtilities.sharedInstance.AppEvents(view: self)
         
         //        var pathArray = NSArray()
         //        if let arrImgVechiles = dictVehicle["vimages"] as? NSArray {

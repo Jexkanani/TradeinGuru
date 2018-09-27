@@ -39,6 +39,7 @@ class OfferReqReceivedController: UIViewController,UITableViewDelegate,UITableVi
         tblData.rowHeight = UITableViewAutomaticDimension
         
         self.getOfferRequest()
+        AppUtilities.sharedInstance.AppEvents(view: self)
         // Do any additional setup after loading the view.
     }
 

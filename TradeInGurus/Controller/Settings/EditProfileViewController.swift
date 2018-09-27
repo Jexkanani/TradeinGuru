@@ -36,6 +36,7 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        AppUtilities.sharedInstance.AppEvents(view: self)
         setData()
         getAllState()
     }

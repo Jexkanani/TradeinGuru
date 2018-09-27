@@ -49,8 +49,7 @@ class OffersListTableViewCell:UITableViewCell
     @IBOutlet weak var lblClosed: UILabel!
     @IBOutlet weak var btnEdit: UIButton!
     @IBOutlet weak var btnDelete: UIButton!
-
-
+    @IBOutlet weak var img: UIImageView!
 }
 
 class OffersListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
@@ -74,6 +73,7 @@ class OffersListViewController: UIViewController,UITableViewDelegate,UITableView
         tblViewOFfer.estimatedRowHeight = 90
         viewError.isHidden = true
         btnAdd.pulsate()
+        AppUtilities.sharedInstance.AppEvents(view: self)
     }
     
     

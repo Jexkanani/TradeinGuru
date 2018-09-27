@@ -33,7 +33,7 @@ class VehicleDetailVC: UIViewController, UITableViewDelegate , UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        AppUtilities.sharedInstance.AppEvents(view: self)
         // Do any additional setup after loading the view.
         
         self.tbl_detail.estimatedRowHeight = 475

@@ -18,5 +18,12 @@
 #import "SPGooglePlacesPlaceDetailQuery.h"
 #import "IQKeyboardManager.h"
 #import "IQTextView.h"
+#import "UIViewController+MJPopupViewController.h"
+#import <GoogleTagManager/TAGManager.h>
+#import <GoogleTagManager/TAGContainer.h>
+#import <GoogleTagManager/TAGContainerOpener.h>
+#import <GoogleTagManager/TAGDataLayer.h>
+#import <GoogleTagManager/TAGLogger.h>
+
 
 #endif /* TrandeInGurus_Bridging_Header_h */

@@ -43,7 +43,7 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        AppUtilities.sharedInstance.AppEvents(view: self)
         tblViewDealear.rowHeight = UITableViewAutomaticDimension
         tblViewDealear.estimatedRowHeight = 30
         setCorner(viewSearchByLocation)
@@ -124,9 +124,7 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     @IBAction func btnSelectDelear (_ sender: UIButton) {
-        
-        
-        
+        debugPrint("hello")
     }
     
     //MARK: - Other
@@ -335,12 +333,13 @@ class DealerListViewController: UIViewController,UITableViewDelegate,UITableView
         
         let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "CellDealer") as! DealerListTableViewCell
         setCorner(tableViewCell)
-        
-        let dictDealer = arrDealers.object(at: indexPath.section) as? NSDictionary
-        tableViewCell.lblDealerName.text = dictDealer?.value(forKey: "fullname") as? String ?? ""
-        tableViewCell.lblDealerMobile.text = "Mo : " + "\(dictDealer?.value(forKey: "mobile") as? String ?? "")"
-        tableViewCell.lblDealerAddress.text = dictDealer?.value(forKey: "address") as? String ?? ""
-        tableViewCell.lblDealerNumber.text = " • "
+        if (arrDealers.object(at: indexPath.section) as? NSDictionary != nil) {
+            let dictDealer = arrDealers.object(at: indexPath.section) as? NSDictionary
+            tableViewCell.lblDealerName.text = dictDealer?.value(forKey: "fullname") as? String ?? ""
+            tableViewCell.lblDealerMobile.text = "Mo : " + "\(dictDealer?.value(forKey: "mobile") as? String ?? "")"
+            tableViewCell.lblDealerAddress.text = dictDealer?.value(forKey: "address") as? String ?? ""
+            tableViewCell.lblDealerNumber.text = " • "
+        }
         return tableViewCell
         
     }

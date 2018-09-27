@@ -35,6 +35,7 @@ class BuyerNotiDetailViewController: UIViewController,UITableViewDelegate,UITabl
         lblTitle.text = "\(arrDic.value(forKey: "totarequests") as? String ?? "0") CUSTOMERS ARE REQUESTED "
         tblData.estimatedRowHeight = 216
         tblData.rowHeight = UITableViewAutomaticDimension
+        AppUtilities.sharedInstance.AppEvents(view: self)
         // Do any additional setup after loading the view.
     }
     

@@ -81,7 +81,7 @@ class NewDealerPostViewController:  UIViewController,UITableViewDataSource,UITab
                           "images":arrImages
             ]
         }
-        
+        AppUtilities.sharedInstance.AppEvents(view: self)
 //        getMake()
         getYear()
         tblViewMakeModelYear.tableFooterView = UIView(frame: CGRect.zero)

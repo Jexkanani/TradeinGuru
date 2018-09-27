@@ -84,7 +84,7 @@ class OfferRequestViewController: UIViewController,UITableViewDataSource,UITable
         getYear()
         setTableFooterView()
         NotificationCenter.default.addObserver(self, selector: #selector(test), name:NSNotification.Name(rawValue: "TestNotification"), object: nil)
-        
+        AppUtilities.sharedInstance.AppEvents(view: self)
     }
     
     func test() {

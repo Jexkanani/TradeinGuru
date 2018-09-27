@@ -36,6 +36,7 @@ class ChatListViewController: UIViewController {
         tblChatList.estimatedRowHeight = 60
         tblChatList.rowHeight = UITableViewAutomaticDimension
         AppUtilities.sharedInstance.showLoader()
+        AppUtilities.sharedInstance.AppEvents(view: self)
         // Do any additional setup after loading the view.
     }
     

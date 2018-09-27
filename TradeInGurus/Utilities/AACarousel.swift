@@ -37,7 +37,7 @@ public class AACarousel: UIView,UIScrollViewDelegate {
     private var beforeImageView:UIImageView!
     private var currentImageView:UIImageView!
     private var afterImageView:UIImageView!
-    private var currentIndex:NSInteger!
+    private var currentIndex:NSInteger! = 0
     private var describedString = [String]()
     private var timer:Timer?
     private var defaultImg:String?
@@ -66,7 +66,6 @@ public class AACarousel: UIView,UIScrollViewDelegate {
         setLayerViewFrame()
         setLabelFrame()
         setPageControlFrame()
-        
         
     }
     

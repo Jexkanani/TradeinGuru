@@ -39,6 +39,7 @@ class DealersDetailViewController: UIViewController,UITableViewDataSource,UITabl
         lblTitle.text =  dict["fullname"] as? String ?? ""
         viewError404.isHidden = true
         getDealersVehicle()
+        AppUtilities.sharedInstance.AppEvents(view: self)
     }
     
     

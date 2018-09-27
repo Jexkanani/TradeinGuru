@@ -18,15 +18,15 @@ class ForgotPasswordViewController: UIViewController {
     //MARK:- UIView Life Cycle -
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppUtilities.sharedInstance.AppEvents(view: self)
     }
 
     //MARK:- UIButton Action -
     @IBAction func btnForgotPassPressed(_ sender: Any) {
-        if isCredentialValid(){
+        if isCredentialValid() {
             forgotPassword()
         }
     }
-    
     
     @IBAction func btnBackClk(_ sender: UIButton)
     {
@@ -69,20 +69,17 @@ class ForgotPasswordViewController: UIViewController {
         AppUtilities.sharedInstance.dataTaskLocal(method: "POST", params: dictionaryParams,strMethod: "", completion: { (success, object) in
             DispatchQueue.main.async( execute: {
                 AppUtilities.sharedInstance.hideLoader()
-                
-                AppUtilities.sharedInstance.hideLoader()
                 if let object = object as? NSDictionary
                 {
                     if  (object.value(forKey: "success") as? Bool) != nil
                     {
-                        
                         let responseDic = object
                         debugPrint(responseDic)
                         if let status = responseDic.value(forKey: "success") as? Int
                         {
                             if(status == 1)
                             {
-                                if let errorMsg = responseDic.value(forKey: "message") as? String{
+                                if let errorMsg = responseDic.value(forKey: "message") as? String {
                                     AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
                                 }
 

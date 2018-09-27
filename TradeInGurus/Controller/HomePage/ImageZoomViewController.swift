@@ -20,6 +20,7 @@ class ImageZoomViewController: UIViewController, UIScrollViewDelegate, EFImageVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppUtilities.sharedInstance.AppEvents(view: self)
         var pathArray = NSArray()
         if let arrImgVechiles = userDic["vimages"] as? NSArray {
             pathArray = arrImgVechiles

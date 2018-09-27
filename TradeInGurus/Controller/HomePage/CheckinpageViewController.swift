@@ -43,6 +43,7 @@ class CheckinpageViewController: UIViewController, UITableViewDataSource,UITable
         searchQuery.radius = 100.0
         shouldBeginEditing = true
         txtSearch.becomeFirstResponder()
+        AppUtilities.sharedInstance.AppEvents(view: self)
     }
     
     //MARK:- UIButton Action Methods -

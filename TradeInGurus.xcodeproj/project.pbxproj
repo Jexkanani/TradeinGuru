@@ -47,8 +47,12 @@
 		84449BB21F6A4425009F566D /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84449BB11F6A4425009F566D /* EditProfileViewController.swift */; };
 		84449BB41F6A4432009F566D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84449BB31F6A4432009F566D /* ChangePasswordViewController.swift */; };
 		84449BB61F6A88DA009F566D /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84449BB51F6A88DA009F566D /* NotificationVC.swift */; };
+		844F59EA2150BB1E001AB96C /* MJPopupBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F59E72150BB1E001AB96C /* MJPopupBackgroundView.m */; };
+		844F59EB2150BB1E001AB96C /* UIViewController+MJPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F59E92150BB1E001AB96C /* UIViewController+MJPopupViewController.m */; };
+		844F59ED2150C233001AB96C /* FbDataPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844F59EC2150C233001AB96C /* FbDataPopUp.swift */; };
 		845EE8FE2099BE2D0025DFB4 /* Listings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845EE8FD2099BE2D0025DFB4 /* Listings.swift */; };
 		847A942F1F8201A7003FFE3E /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847A942E1F8201A7003FFE3E /* BarcodeScannerViewController.swift */; };
+		848A1D092153C0E300E02831 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 848A1D082153C0E200E02831 /* GoogleService-Info.plist */; };
 		848BFA4E1F67F88F009EB167 /* VehicleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848BFA4D1F67F88F009EB167 /* VehicleDetailViewController.swift */; };
 		848BFA501F680310009EB167 /* DealerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848BFA4F1F680310009EB167 /* DealerListViewController.swift */; };
 		8493577B1F67A6DD00BA1DEA /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8493577A1F67A6DD00BA1DEA /* MenuViewController.swift */; };
@@ -56,6 +60,7 @@
 		849357841F67AB3E00BA1DEA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 8493577F1F67AB3E00BA1DEA /* README.md */; };
 		849357851F67AB3E00BA1DEA /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849357821F67AB3E00BA1DEA /* SWRevealViewController.m */; };
 		849357871F67E25C00BA1DEA /* GetCurrentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849357861F67E25C00BA1DEA /* GetCurrentLocation.swift */; };
+		849AC82C215CAA8200C2DBF4 /* GTM-WMQZ4KL in Resources */ = {isa = PBXBuildFile; fileRef = 849AC82B215CAA8200C2DBF4 /* GTM-WMQZ4KL */; };
 		84A91D061F5433B400800067 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A91D051F5433B400800067 /* RegisterViewController.swift */; };
 		84A91D0A1F54488100800067 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A91D091F54488100800067 /* HomePageViewController.swift */; };
 		84BBADF61F69294E0030467E /* BuyerNotiDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBADF31F69294E0030467E /* BuyerNotiDetailViewController.swift */; };
@@ -177,11 +182,17 @@
 		84449BB11F6A4425009F566D /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		84449BB31F6A4432009F566D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		84449BB51F6A88DA009F566D /* NotificationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
+		844F59E62150BB1E001AB96C /* MJPopupBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPopupBackgroundView.h; sourceTree = "<group>"; };
+		844F59E72150BB1E001AB96C /* MJPopupBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPopupBackgroundView.m; sourceTree = "<group>"; };
+		844F59E82150BB1E001AB96C /* UIViewController+MJPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MJPopupViewController.h"; sourceTree = "<group>"; };
+		844F59E92150BB1E001AB96C /* UIViewController+MJPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MJPopupViewController.m"; sourceTree = "<group>"; };
+		844F59EC2150C233001AB96C /* FbDataPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbDataPopUp.swift; sourceTree = "<group>"; };
 		845EE8FD2099BE2D0025DFB4 /* Listings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listings.swift; sourceTree = "<group>"; };
 		8462CA871FE39ABF00BDD06D /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		8462CA881FE39ABF00BDD06D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		8465ACBF1FB17A87001D2D56 /* TradeInGurus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TradeInGurus.entitlements; sourceTree = "<group>"; };
 		847A942E1F8201A7003FFE3E /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
+		848A1D082153C0E200E02831 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		848BFA4D1F67F88F009EB167 /* VehicleDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleDetailViewController.swift; sourceTree = "<group>"; };
 		848BFA4F1F680310009EB167 /* DealerListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealerListViewController.swift; sourceTree = "<group>"; };
 		8493577A1F67A6DD00BA1DEA /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +201,7 @@
 		849357811F67AB3E00BA1DEA /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		849357821F67AB3E00BA1DEA /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		849357861F67E25C00BA1DEA /* GetCurrentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCurrentLocation.swift; sourceTree = "<group>"; };
+		849AC82B215CAA8200C2DBF4 /* GTM-WMQZ4KL */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTM-WMQZ4KL"; sourceTree = "<group>"; };
 		84A91D051F5433B400800067 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		84A91D091F54488100800067 /* HomePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		84BBADF31F69294E0030467E /* BuyerNotiDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyerNotiDetailViewController.swift; sourceTree = "<group>"; };
@@ -304,6 +316,8 @@
 				841E41901F517B64008CC41B /* LaunchScreen.storyboard */,
 				841E41ED1F5180F3008CC41B /* TrandeInGurus-Bridging-Header.h */,
 				841E41931F517B64008CC41B /* Info.plist */,
+				848A1D082153C0E200E02831 /* GoogleService-Info.plist */,
+				849AC82B215CAA8200C2DBF4 /* GTM-WMQZ4KL */,
 				841E419B1F517C04008CC41B /* Image.xcassets */,
 			);
 			path = TradeInGurus;
@@ -343,6 +357,7 @@
 				841E419E1F517F81008CC41B /* LoginViewController.swift */,
 				84A91D051F5433B400800067 /* RegisterViewController.swift */,
 				8409323F1FB1B575000B4870 /* ForgotPasswordViewController.swift */,
+				844F59EC2150C233001AB96C /* FbDataPopUp.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -362,6 +377,7 @@
 		841E41A51F518099008CC41B /* Libaray */ = {
 			isa = PBXGroup;
 			children = (
+				844F59E52150BB1E001AB96C /* MJPOP */,
 				8434C36520F770BE00F343A9 /* EFImageViewZoom */,
 				84F621481FE278CC001BEAD4 /* IQKeyboardManager */,
 				843026501FB473D400EC766A /* Google Location */,
@@ -472,6 +488,17 @@
 				84449BB31F6A4432009F566D /* ChangePasswordViewController.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		844F59E52150BB1E001AB96C /* MJPOP */ = {
+			isa = PBXGroup;
+			children = (
+				844F59E62150BB1E001AB96C /* MJPopupBackgroundView.h */,
+				844F59E72150BB1E001AB96C /* MJPopupBackgroundView.m */,
+				844F59E82150BB1E001AB96C /* UIViewController+MJPopupViewController.h */,
+				844F59E92150BB1E001AB96C /* UIViewController+MJPopupViewController.m */,
+			);
+			path = MJPOP;
 			sourceTree = "<group>";
 		};
 		849357761F67A6B800BA1DEA /* Menu */ = {
@@ -761,8 +788,10 @@
 				841E41FC1F5181BE008CC41B /* Ubuntu-LI.ttf in Resources */,
 				841E41E91F518099008CC41B /* SBPickerSelector.xib in Resources */,
 				841E41FB1F5181BE008CC41B /* Ubuntu-L.ttf in Resources */,
+				849AC82C215CAA8200C2DBF4 /* GTM-WMQZ4KL in Resources */,
 				841E41FA1F5181BE008CC41B /* Ubuntu-C.ttf in Resources */,
 				841E41FD1F5181BE008CC41B /* Ubuntu-M.ttf in Resources */,
+				848A1D092153C0E300E02831 /* GoogleService-Info.plist in Resources */,
 				849357831F67AB3E00BA1DEA /* LICENSE.txt in Resources */,
 				841E418F1F517B64008CC41B /* Assets.xcassets in Resources */,
 				841E418D1F517B64008CC41B /* Main.storyboard in Resources */,
@@ -812,18 +841,28 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-TradeInGurus/Pods-TradeInGurus-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/MTBBarcodeScanner/MTBBarcodeScanner.framework",
 				"${BUILT_PRODUCTS_DIR}/RSBarcodes/RSBarcodes.framework",
 				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MTBBarcodeScanner.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RSBarcodes.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -887,6 +926,7 @@
 				8493577B1F67A6DD00BA1DEA /* MenuViewController.swift in Sources */,
 				84BBAE121F69298A0030467E /* AnimatedImageView.swift in Sources */,
 				849357871F67E25C00BA1DEA /* GetCurrentLocation.swift in Sources */,
+				844F59ED2150C233001AB96C /* FbDataPopUp.swift in Sources */,
 				84F6216E1FE278CC001BEAD4 /* IQUIScrollView+Additions.m in Sources */,
 				84F621761FE278CC001BEAD4 /* IQBarButtonItem.m in Sources */,
 				843C734F2089CF9E001C8F17 /* DealerInfoViewController.swift in Sources */,
@@ -916,6 +956,8 @@
 				8430265C1FB473D400EC766A /* SPGooglePlacesPlaceDetailQuery.m in Sources */,
 				841E41EB1F518099008CC41B /* SwiftLoader.swift in Sources */,
 				84BBAE1C1F69298A0030467E /* ImageTransition.swift in Sources */,
+				844F59EB2150BB1E001AB96C /* UIViewController+MJPopupViewController.m in Sources */,
+				844F59EA2150BB1E001AB96C /* MJPopupBackgroundView.m in Sources */,
 				84DB66181FCD2A6000C6BFDC /* ChatViewController.swift in Sources */,
 				84BBAE1A1F69298A0030467E /* ImagePrefetcher.swift in Sources */,
 				8430265B1FB473D400EC766A /* SPGooglePlacesAutocompleteUtilities.m in Sources */,
@@ -968,8 +1010,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: BlueLink (FVCHT3ED5L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: BlueLink (FVCHT3ED5L)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = FVCHT3ED5L;
@@ -993,7 +1035,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "25da4957-5169-47d8-b21d-42e4b5c3811c";
+				PROVISIONING_PROFILE = "b110aa5c-acb4-4788-8a47-079f09db9af7";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1023,8 +1065,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: BlueLink (FVCHT3ED5L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: BlueLink (FVCHT3ED5L)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = FVCHT3ED5L;
@@ -1041,7 +1083,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "25da4957-5169-47d8-b21d-42e4b5c3811c";
+				PROVISIONING_PROFILE = "b110aa5c-acb4-4788-8a47-079f09db9af7";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
@@ -1055,18 +1097,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TradeInGurus/TradeInGurus.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: BlueLink (FVCHT3ED5L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: BlueLink (FVCHT3ED5L)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FVCHT3ED5L;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleTagManager/Frameworks/frameworks",
+				);
 				INFOPLIST_FILE = TradeInGurus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bluelink.tradeingurus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "25da4957-5169-47d8-b21d-42e4b5c3811c";
-				PROVISIONING_PROFILE_SPECIFIER = TrandInGuruDist23022018;
+				PROVISIONING_PROFILE = "b110aa5c-acb4-4788-8a47-079f09db9af7";
+				PROVISIONING_PROFILE_SPECIFIER = Tradeingurudist1;
 				SWIFT_OBJC_BRIDGING_HEADER = "TradeInGurus/TrandeInGurus-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1079,18 +1125,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TradeInGurus/TradeInGurus.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: BlueLink (FVCHT3ED5L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: BlueLink (FVCHT3ED5L)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FVCHT3ED5L;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleTagManager/Frameworks/frameworks",
+				);
 				INFOPLIST_FILE = TradeInGurus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bluelink.tradeingurus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "25da4957-5169-47d8-b21d-42e4b5c3811c";
-				PROVISIONING_PROFILE_SPECIFIER = TrandInGuruDist23022018;
+				PROVISIONING_PROFILE = "b110aa5c-acb4-4788-8a47-079f09db9af7";
+				PROVISIONING_PROFILE_SPECIFIER = Tradeingurudist1;
 				SWIFT_OBJC_BRIDGING_HEADER = "TradeInGurus/TrandeInGurus-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

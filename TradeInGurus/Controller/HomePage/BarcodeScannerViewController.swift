@@ -20,6 +20,7 @@ class BarcodeScannerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         scanner = MTBBarcodeScanner(previewView: previewView)
+        AppUtilities.sharedInstance.AppEvents(view: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {

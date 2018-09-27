@@ -11,6 +11,9 @@ import UIKit
 import Contacts
 import MessageUI
 import MobileCoreServices//tradeingurus.com
+import FBSDKCoreKit
+import Firebase
+
 //let Base_URL = "http://tradeingurus.com/WebService/service"
 let Base_URL = "https://app.tradeingurus.com/WebService/service"
 //let Base_URL = "http://www.app.tradeingurus.com/WebService/service"
@@ -18,9 +21,20 @@ let Base_URL = "https://app.tradeingurus.com/WebService/service"
 let Local_URL = Base_URL
 let APP_Title = NSLocalizedString("TradeInGurus", comment: "comm")
 
+extension NSObject {
+    var className: String {
+        return String(describing: type(of: self)).components(separatedBy: ".").last!
+    }
+    
+    class var className: String {
+        return String(describing: self).components(separatedBy: ".").last!
+    }
+}
+
 class AppUtilities
 {
-    //MARK: - Golbal Contstant - 
+    //MARK: - Golbal Contstant -
+    var dataLayer: TAGDataLayer = TAGManager.instance().dataLayer
     class GlobalConstant: NSObject
     {
         struct ColorConstants
@@ -54,13 +68,27 @@ class AppUtilities
         return Singleton.instance
     }
     
-  
-
+    // FB Events
+    func AppEvents(view : UIViewController) {
+        let strClassname = String(describing: view.self.className)
+        debugPrint("strClassname: \(strClassname)")
+        FBSDKAppEvents.logEvent(strClassname)
+        
+        Analytics.setScreenName(strClassname, screenClass: strClassname)
+        
+        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: "id-\(strClassname)",
+            AnalyticsParameterItemName: strClassname,
+            AnalyticsParameterContentType: "Screen Name"
+            ])
+        
+        dataLayer.push(["event": "OpenScreen", "screenName": strClassname])
+//        dataLayer.push(["event": "openScreen", "screenName": "Main Screen1"])
+    }
     
     //MARK:- Get User Details -
     func getLoginDict()->NSDictionary
     {
-        
         let dictData = UserDefaults.standard.data(forKey: "LoginResponse")
         let dict = NSKeyedUnarchiver.unarchiveObject(with: dictData!)
         return dict as! NSDictionary
@@ -173,8 +201,6 @@ class AppUtilities
         let stateid = dict.value(forKey: "stateid") as! String
         return stateid
     }
-    
-
     
     /*=======================================================
      Function Name: isValidEmail

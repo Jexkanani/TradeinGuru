@@ -14,4 +14,8 @@ target 'TradeInGurus' do
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'RSBarcodes', '~> 0.1'
+    pod 'FBSDKLoginKit'
+    pod 'Firebase/Core'
+    #pod 'GoogleTagManager'
+    pod 'GoogleTagManager’,’~> 3.15.0’
 end

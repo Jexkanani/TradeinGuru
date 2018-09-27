@@ -11,10 +11,11 @@ import CoreLocation
 import Fabric
 import Crashlytics
 import UserNotifications
+import FBSDKCoreKit
+import Firebase
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate,TAGContainerOpenerNotifier {
     
     var userlocation : CLLocation? = nil
     let userLogin = UserDefaults.standard.bool(forKey: "IsUserLoggedIn")
@@ -57,15 +58,60 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             Language = "AR"
         }
         
+        // Facebook Login
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        FBSDKSettings.setAutoLogAppEventsEnabled(true) //FB: TradeInGurus1@gmail.com  // Letmeinplease2
         
         Fabric.sharedSDK().debug = true
         Fabric.with([Crashlytics()])
         //Crashlytics.sharedInstance().crash()
         // abort()
         
+        FirebaseApp.configure() //Firebase: TradeInGurus1@gmail.com // lETMEINPLEASE2
         IQKeyboardManager.shared().isEnabled = true
+        
+        let GTM = TAGManager.instance() //Google Tag Manager: TradeInGurus1@gmail.com // lETMEINPLEASE2
+        GTM?.logger.setLogLevel(kTAGLoggerLogLevelVerbose)
+        
+        TAGContainerOpener.openContainer(withId: "GTM-WMQZ4KL",  // change the container ID "GTM-PT3L9Z" to yours
+            tagManager: GTM, openType: kTAGOpenTypePreferFresh,
+            timeout: nil,
+            notifier: self)
         return true
     }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
+        if let _ = Bundle.main.object(forInfoDictionaryKey: "FacebookAppID") as? String {
+            return FBSDKApplicationDelegate.sharedInstance().application(application,
+                                                             open: url,
+                                                             sourceApplication: sourceApplication,
+                                                             annotation: annotation)
+        }
+        return false
+    }
+    
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+        
+        if let _ = Bundle.main.object(forInfoDictionaryKey: "FacebookAppID") as? String {
+            return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, options: options)
+        }
+        
+        return false
+    }
+    
+    /*func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(UIApplication.shared, open: url, sourceApplication: options[.sourceApplication], annotation: options[.annotation])
+        // Add any custom logic here.
+        return handled
+    }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+        // Add any custom logic here.
+        return handled
+    }*/
     
     func getLauncing(dictNotif: NSDictionary) {
         getNotification(notificInfo: dictNotif, identifire: "")
@@ -94,7 +140,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         {
             Language = "AR"
         }
-        
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -278,6 +323,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
             })
         })
+    }
+    // MARK: - Google Tag Manager
+    func containerAvailable(_ container: TAGContainer!) {
+        container.refresh()
     }
 }
 

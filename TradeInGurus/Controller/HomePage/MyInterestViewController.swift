@@ -22,6 +22,8 @@ class MyInterestViewController: UIViewController ,UITableViewDelegate,UITableVie
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        AppUtilities.sharedInstance.AppEvents(view: self)
+        
         getMyInterests()
         tblViewInterest.rowHeight = UITableViewAutomaticDimension
         tblViewInterest.estimatedRowHeight = 120

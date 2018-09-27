@@ -25,6 +25,7 @@ class TermsConditions: UIViewController,UITableViewDelegate,UITableViewDataSourc
         self.tblTermsCond.estimatedRowHeight = 40
         self.tblTermsCond.rowHeight = UITableViewAutomaticDimension
         setData()
+        AppUtilities.sharedInstance.AppEvents(view: self)
     }
     
     //MARK: - Table View Delegate And DataSource Method

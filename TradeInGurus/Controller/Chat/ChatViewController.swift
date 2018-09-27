@@ -60,6 +60,7 @@ class ChatViewController: UIViewController, UITextViewDelegate, UNUserNotificati
         txtViewMessage.layer.borderWidth = 1.0
         tblChat.estimatedRowHeight = 50
         tblChat.rowHeight = UITableViewAutomaticDimension
+        AppUtilities.sharedInstance.AppEvents(view: self)
         //self.view.bringSubview(toFront: viewNavigationBar)
     }
     
@@ -71,7 +72,11 @@ class ChatViewController: UIViewController, UITextViewDelegate, UNUserNotificati
         
         if isFromBuyerNoti
         {
-            self.toUserId = dictChatUser.value(forKey: "user_id") as! String
+            if (dictChatUser.value(forKey: "user_id") != nil) {
+                self.toUserId = dictChatUser.value(forKey: "user_id") as! String
+            } else {
+                return
+            }
         }
         else
         {

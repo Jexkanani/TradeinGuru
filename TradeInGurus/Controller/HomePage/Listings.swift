@@ -47,7 +47,7 @@ class Listings: UIViewController,SWRevealViewControllerDelegate,UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         //Crashlytics.sharedInstance().crash()
-        
+        AppUtilities.sharedInstance.AppEvents(view: self)
         if isBackground == false {
             AppApi.sharedInstance.notifiCount()
         }

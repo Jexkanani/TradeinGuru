@@ -9,6 +9,8 @@
 import UIKit
 import SDWebImage
 import Crashlytics
+import FBSDKCoreKit
+
 class CustomerTableViewCell: UITableViewCell
 {
     @IBOutlet weak var lblYear: UILabel!
@@ -41,7 +43,6 @@ class DealerTableViewCell: UITableViewCell
 class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate {
     
     //Consumer
-    
     @IBOutlet weak var viewPostNew: UIView!
     @IBOutlet weak var viewAllDealers: UIView!
     @IBOutlet weak var viewOffers: UIView!
@@ -50,12 +51,16 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     @IBOutlet weak var viewCustomers: UIView!
     @IBOutlet weak var lblBuyerNotification: UILabel!
     
-    
+    @IBOutlet var searchBar_cu: UISearchBar!
+    @IBOutlet var searchBar_FromYear: UISearchBar!
+    @IBOutlet var searchBar_ToYear: UISearchBar!
+    @IBOutlet var searchBar_Model: UISearchBar!
     
     @IBOutlet var searchBar_De: UISearchBar!
-    @IBOutlet var searchBar_cu: UISearchBar!
-    @IBOutlet var searchBar_Year: UISearchBar!
-    @IBOutlet var searchBar_Model: UISearchBar!
+    
+    @IBOutlet var searchBar_PriceFrom: UISearchBar!
+    @IBOutlet var searchBar_PriceTo: UISearchBar!
+    
     //Dealer
     
     @IBOutlet weak var viewDPostNew: UIView!
@@ -79,6 +84,8 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppUtilities.sharedInstance.AppEvents(view: self)
+
         //Crashlytics.sharedInstance().crash()
         
         //        if isBackground == false {
@@ -230,8 +237,6 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     }
     
     //MARK: - UITableView Datasource Delegate -
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return 1
@@ -377,11 +382,14 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
             }
             tableViewCell.lblYear.text = dictConsumer["v_year"] as? String ?? ""
             tableViewCell.lblTitle.text = dictConsumer["make"] as? String ?? ""
-            tableViewCell.lblDistance.text = dictConsumer["mileage"] as? String ?? ""
+//            tableViewCell.lblDistance.text = dictConsumer["mileage"] as? String ?? ""
+            tableViewCell.lblDistance.text = (((dictConsumer["mileage"] as? String ?? "")?.split(separator:  "."))! as NSArray).object(at: 0) as? String
             if dictConsumer["v_price"] as? String == "0" {
                 tableViewCell.lblPrice.text = "Not Available"
             } else {
                 tableViewCell.lblPrice.text = dictConsumer["v_price"] as? String ?? "Not Available"
+//                let x: Int? = Int((dictConsumer["v_price"] as? String)!)
+//                tableViewCell.lblPrice.text = String(describing: x!)
             }
             
             tableViewCell.lblLocation.text = dictConsumer["pincode"] as? String ?? "Not Available"
@@ -416,9 +424,14 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
             }
             tableViewCell.lblYear.text = dictConsumer["v_year"] as? String ?? ""
             tableViewCell.lblTitle.text = dictConsumer["v_make"] as? String ?? ""
-            tableViewCell.lblDistance.text = dictConsumer["mileage"] as? String ?? ""
-            tableViewCell.lblPrice.text = dictConsumer["v_price"] as? String ?? ""
-            tableViewCell.lblLocation.text = dictConsumer["address"] as? String ?? ""
+//            tableViewCell.lblDistance.text = dictConsumer["mileage"] as? String ?? ""
+//            let x: Int = Int((dictConsumer["mileage"] as? String ?? "0")!)!
+            tableViewCell.lblDistance.text = (((dictConsumer["mileage"] as? String ?? "")?.split(separator:  "."))! as NSArray).object(at: 0) as? String
+            if dictConsumer["v_price"] as? String == "0" {
+                tableViewCell.lblPrice.text = "Not Available"
+            } else {                tableViewCell.lblPrice.text = dictConsumer["v_price"] as? String ?? ""
+            }
+            tableViewCell.lblLocation.text = dictConsumer["city"] as? String ?? ""
             tableViewCell.lblBy.text = "by \(dictConsumer["fullname"] as? String ?? "")"
             tableViewCell.lblDate.text = dictConsumer["modification_datetime"] as? String ?? ""
             
@@ -665,7 +678,6 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
                 self.refreshControlDealer.endRefreshing()
                 if self.spinner != nil{
                     self.spinner.stopAnimating()
-                    
                 }
                 //AppUtilities.sharedInstance.hideLoader()
                 self.tblViewDealear.tableFooterView = nil
@@ -722,6 +734,43 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
         //self.view.endEditing(true)
         self.isAPICalled = true
         //AppUtilities.sharedInstance.showLoader()
+        let make : String
+        if ((searchBar_cu.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count)! > 0) {
+            make = (searchBar_cu.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))!
+        } else {
+            make = ""
+        }
+        let model : String
+        if ((searchBar_Model.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count)! > 0) {
+            model = (searchBar_Model.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))!
+        } else {
+            model = ""
+        }
+        let fromyear : String
+        if ((searchBar_FromYear.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count)! > 0) {
+            fromyear = (searchBar_FromYear.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))!
+        } else {
+            fromyear = "0"
+        }
+        let toYear : String
+        if ((searchBar_ToYear.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count)! > 0) {
+            toYear = (searchBar_ToYear.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))!
+        } else {
+            let year = Calendar.current.component(.year, from: Date())
+            toYear = "\(year)"
+        }
+        let PriceFrom : String
+        if ((searchBar_PriceFrom.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count)! > 0) {
+            PriceFrom = (searchBar_PriceFrom.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))!
+        } else {
+            PriceFrom = "0"
+        }
+        let PriceTo : String
+        if ((searchBar_PriceTo.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count)! > 0) {
+            PriceTo = (searchBar_PriceTo.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))!
+        } else {
+            PriceTo = "0"
+        }
         
         let dictionaryParams : NSDictionary = [
             "service": "NearVehicle",
@@ -730,8 +779,13 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
                     "user_lat":GetCurrentLocation.sharedObject.currentGeoLocation?.coordinate.latitude ?? 21.170240,
                     "user_long": GetCurrentLocation.sharedObject.currentGeoLocation?.coordinate.longitude ?? 72.831062,
                     "distance": 1000,
-                    "pageindex":PageInd
-                    
+                    "pageindex":PageInd,
+                    "text" : make, // search
+                    "model" : model, // model
+                    "year_from" : fromyear,
+                    "year_to" :  toYear,
+                    "price_from" : PriceFrom,
+                    "price_to" : PriceTo
                 ]],
             
             "auth": ["id":AppUtilities.sharedInstance.getLoginUserId(),
@@ -762,28 +816,27 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
                         {
                             if(status == 1)
                             {
-                                
-                                
                                 if let arr = responseDic.value(forKey: "data") as? NSArray
                                 {
                                     if arr.count == 0 ||  arr.count < 10{
                                         self.isAPICalled = true
                                     }
-                                    
                                     if self.PageInd == 1 {
                                         self.arrVehicle = NSMutableArray(array: arr)
                                     }
                                     else {
                                         self.arrVehicle.addObjects(from: arr as! [Any])
                                     }
-                                    
                                     self.tblViewConsumer.reloadData()
-                                    
                                 }
-                                
                             }
                             else{
                                 if let errorMsg = responseDic.value(forKey: "message") as? String{
+                                    if (errorMsg == "Near Vehicle Not Found.") {
+//                                        self.arrVehicle = NSMutableArray()
+                                        self.isAPICalled = true
+                                        self.tblViewConsumer.reloadData()
+                                    }
                                     //AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: errorMsg as NSString)
                                 }
                             }
@@ -796,14 +849,12 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
                     else
                     {
                         AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: "\(object.value(forKey: "message") as? String ?? "" )" as NSString)
-                        
                     }
                 }
                 else
                 {
                     AppUtilities.sharedInstance.showAlert(title: APP_Title as NSString, msg: (NSLocalizedString("Server is temporary down !! Plz try after sometime", comment: "Server is temporary down !! Plz try after sometime") as NSString))
                 }
-                
             })
         })
     }
@@ -883,7 +934,6 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         if let vc = mainStoryBoard.instantiateViewController(withIdentifier: "NotificationViewController") as? NotificationVC{
             self.navigationController?.pushViewController(vc, animated: true)
-            
         }
     }
     
@@ -933,6 +983,8 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
     //MARK:- UISearchBar Method
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
     {
+        PageInd = 1
+        self.nearVehicle()
         self.view.endEditing(true)
     }
     
@@ -948,8 +1000,12 @@ class HomePageViewController: UIViewController,SWRevealViewControllerDelegate,UI
 //            } else if (searchBar == searchBar_Year) {
 //                searchCustomer(searchtext: searchBar_Year.text!)
 //            } else if (searchBar == searchBar_Model) {
-                searchCustomer(searchtext: searchBar_cu.text!, searchYeartext: searchBar_Year.text!, searchModeltext: searchBar_Model.text!)
+//                searchCustomer(searchtext: searchBar_cu.text!, searchYeartext: searchBar_FromYear.text!, searchModeltext: searchBar_Model.text!)
 //            }
+            if (((searchText.count % 2) == 0) || searchText.count == 0) {
+                PageInd = 1
+                self.nearVehicle()
+            }
         }
     }
     
